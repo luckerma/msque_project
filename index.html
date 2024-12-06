@@ -25,6 +25,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -54,6 +55,35 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-7bfb9ce031f0150bcdd0059ffcd3ab40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta name="citation_title" content="Wireless Network Modeling and Simulation">
 <meta name="citation_abstract" content="Abstract
@@ -64,6 +94,8 @@ div.csl-indent {
 <meta name="citation_year" content="2024">
 <meta name="citation_online_date" content="2024-12-06">
 <meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=INET Framework - Wireless Tutorial;,citation_author=INET Framework;,citation_fulltext_html_url=https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html;">
+<meta name="citation_reference" content="citation_title=OMNeT++ Environment;,citation_author=OMNeT++;,citation_fulltext_html_url=https://omnetpp.org/opp_env;">
 </head>
 
 <body>
@@ -136,7 +168,7 @@ div.csl-indent {
   <li><a href="#reproduce-the-simulation-and-confirm-that-the-results-remain-consistent." id="toc-reproduce-the-simulation-and-confirm-that-the-results-remain-consistent." class="nav-link" data-scroll-target="#reproduce-the-simulation-and-confirm-that-the-results-remain-consistent."><span class="header-section-number">2.1.4</span> Reproduce the simulation and confirm that the results remain consistent.</a></li>
   <li><a href="#modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results" id="toc-modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results" class="nav-link" data-scroll-target="#modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results"><span class="header-section-number">2.1.5</span> Modify the random number generator seed in <code>omnetpp.ini</code>. How does changing the seed impact the simulation results?</a></li>
   <li><a href="#list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." id="toc-list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." class="nav-link" data-scroll-target="#list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code."><span class="header-section-number">2.1.6</span> List all parameters of the MAC protocol used in <code>AckingWirelessInterface</code> with references to the source code.</a></li>
-  <li><a href="#explain-the-throughputvector-statistic-in-the-analysis-ﬁle-by-citing-its-definition-and-implementation-in-the-source-code." id="toc-explain-the-throughputvector-statistic-in-the-analysis-ﬁle-by-citing-its-definition-and-implementation-in-the-source-code." class="nav-link" data-scroll-target="#explain-the-throughputvector-statistic-in-the-analysis-ﬁle-by-citing-its-definition-and-implementation-in-the-source-code."><span class="header-section-number">2.1.7</span> Explain the <code>throughput:vector</code> statistic in the analysis ﬁle by citing its definition and implementation in the source code.</a></li>
+  <li><a href="#explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code." id="toc-explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code." class="nav-link" data-scroll-target="#explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code."><span class="header-section-number">2.1.7</span> Explain the <code>throughput:vector</code> statistic in the analysis file by citing its definition and implementation in the source code.</a></li>
   </ul></li>
   <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2"><span class="header-section-number">2.2</span> Step 2</a>
   <ul class="collapse">
@@ -190,6 +222,8 @@ div.csl-indent {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>INET wireless tutorial <span class="citation" data-cites="inet_wireless_tutorial2024">(<a href="#ref-inet_wireless_tutorial2024" role="doc-biblioref">INET Framework n.d.</a>)</span>.</p>
+<p>op_env <span class="citation" data-cites="op_env2024">(<a href="#ref-op_env2024" role="doc-biblioref">OMNeT++ n.d.</a>)</span>.</p>
 </section>
 <section id="configuration" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Configuration</h1>
@@ -197,24 +231,94 @@ div.csl-indent {
 <h2 data-number="2.1" class="anchored" data-anchor-id="step-1"><span class="header-section-number">2.1</span> Step 1</h2>
 <section id="simulate-and-measure-the-transmission-rate." class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="simulate-and-measure-the-transmission-rate."><span class="header-section-number">2.1.1</span> Simulate and measure the transmission rate.</h3>
+<p>After each transmitted packet, the following output is generated:</p>
+<pre class="plaintext"><code>UDPData-1 (8.504 ms 1063 B)</code></pre>
+<p>The output shows that the packet <code>UDPData-1</code> was transmitted after <code>8.504 ms</code> with a size of <code>1063 bytes</code>.</p>
 </section>
 <section id="is-the-inter-arrival-time-for-the-packets-memoryless-explain-your-answer." class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="is-the-inter-arrival-time-for-the-packets-memoryless-explain-your-answer."><span class="header-section-number">2.1.2</span> Is the inter-arrival time for the packets memoryless? Explain your answer.</h3>
+<p>One line of the ‘omnetpp.ini’ configuration file is as follows:</p>
+<pre class="plaintext"><code>*.hostA.app[0].sendInterval = exponential(12ms)</code></pre>
+<p>From the configuration, it is clear that the inter-arrival times are memoryless because the <code>sendInterval</code> is explicitly defined as <code>exponential(12ms)</code>. This is a key property of exponential distributions, which are memoryless.</p>
+<p>Another approach is to analyze the output of the simulation:</p>
+<pre class="plaintext"><code>Event #17
+Reception ended: successfully (8.504 ms 1063 B)
+
+Event #6122
+Reception ended: successfully (8.504 ms 1063 B)</code></pre>
+<p>Even after a lot of events the arrival time of the packets is still constant at <code>8.504 ms</code>, which is a characteristic of memoryless processes.</p>
 </section>
 <section id="compute-the-total-number-of-packets-transmitted-during-the-simulation-time.-explain-why-the-transmission-rate-was-around-660-kbps." class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="compute-the-total-number-of-packets-transmitted-during-the-simulation-time.-explain-why-the-transmission-rate-was-around-660-kbps."><span class="header-section-number">2.1.3</span> Compute the total number of packets transmitted during the simulation time. Explain why the transmission rate was around 660 kbps.</h3>
+<p>The simulation stops after <code>20</code> seconds with the following output:</p>
+<pre class="plaintext"><code>Simulation time limit reached -- at t=20s, event #20746
+Transmission count = 1596</code></pre>
+<p>A total of <code>1596</code> packets were transmitted during the simulation time.</p>
+<pre class="plaintext"><code>totalLengthField = 1028</code></pre>
+<p>The total length of one packet is <code>1028</code> bytes.</p>
+<p>The transmission rate is calculated as follows:</p>
+<p><span id="eq-transmission_rate"><span class="math display">\[
+\begin{aligned}
+\text{Transmission Rate} &amp;= \frac{\text{totalLengthField} \times \text{Transmission count}}{\text{Simulation time}} \\
+&amp;= \frac{1028 \text{bytes} \times 1596}{20 \text{s}} = 82034.4 \text{bytes/s} \\
+&amp;= 82034.4 \text{bytes/s} \times 8 \text{bits/byte} = 656275.2 \text{bits/s} \\
+&amp;= 656.2752 \text{kbps}
+\end{aligned}
+\tag{1}\]</span></span></p>
+<p><a href="#eq-transmission_rate" class="quarto-xref">Equation&nbsp;1</a> shows that the transmission rate is around <code>656 kbps</code>, which is close to the expected value of <code>660 kbps</code>.</p>
 </section>
 <section id="reproduce-the-simulation-and-confirm-that-the-results-remain-consistent." class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="reproduce-the-simulation-and-confirm-that-the-results-remain-consistent."><span class="header-section-number">2.1.4</span> Reproduce the simulation and confirm that the results remain consistent.</h3>
+<p>All simulation runs come to the same result:</p>
+<pre class="plaintext"><code>Simulation time limit reached -- at t=20s, event #20746
+
+Transmission count = 1596
+Signal send count = 1596
+Reception computation count = 1596</code></pre>
+<p>The transmission count is always <code>1596</code> packets, which confirms the consistency of the results. The event number is also the same in all runs, which indicates that the simulation is deterministic.</p>
 </section>
 <section id="modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results" class="level3" data-number="2.1.5">
 <h3 data-number="2.1.5" class="anchored" data-anchor-id="modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results"><span class="header-section-number">2.1.5</span> Modify the random number generator seed in <code>omnetpp.ini</code>. How does changing the seed impact the simulation results?</h3>
+<p>To modify the random number generator seed, the following line in the <code>omnetpp.ini</code> file is changed:</p>
+<pre class="plaintext"><code>seed-set = 1337</code></pre>
+<p>After changing the seed, the simulation is run again. The results are as follows:</p>
+<pre class="plaintext"><code>Simulation time limit reached -- at t=20s, event #21022
+
+Transmission count = 1617
+Signal send count = 1617
+Reception computation count = 1617</code></pre>
+<p>The transmission count is now <code>1617</code> packets, which is different from the previous result. This shows that changing the seed impacts the simulation results. In this case, the number of transmitted packets increased by <code>21</code>.</p>
 </section>
 <section id="list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." class="level3" data-number="2.1.6">
 <h3 data-number="2.1.6" class="anchored" data-anchor-id="list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code."><span class="header-section-number">2.1.6</span> List all parameters of the MAC protocol used in <code>AckingWirelessInterface</code> with references to the source code.</h3>
+<p>The parameters in the <code>omnetpp.ini</code> file are as follows:</p>
+<pre class="plaintext"><code>*.host*.wlan[0].typename = "AckingWirelessInterface"
+*.host*.wlan[0].mac.useAck = false
+*.host*.wlan[0].mac.fullDuplex = false
+*.host*.wlan[0].radio.transmitter.communicationRange = 500m
+*.host*.wlan[0].radio.receiver.ignoreInterference = true
+*.host*.wlan[0].mac.headerLength = 23B</code></pre>
+<p>and in the <code>inet-4.5.4/src/inet/linklayer/acking/AckingWirelessInterface.ned</code> file (l. 30-36):</p>
+<pre class="plaintext"><code>parameters:
+        string interfaceTableModule;
+        string energySourceModule = default("");
+        double bitrate @unit(bps);
+        *.interfaceTableModule = default(absPath(this.interfaceTableModule));
+        *.energySourceModule = default(absPath(this.energySourceModule));
+        **.bitrate = this.bitrate;</code></pre>
 </section>
-<section id="explain-the-throughputvector-statistic-in-the-analysis-ﬁle-by-citing-its-definition-and-implementation-in-the-source-code." class="level3" data-number="2.1.7">
-<h3 data-number="2.1.7" class="anchored" data-anchor-id="explain-the-throughputvector-statistic-in-the-analysis-ﬁle-by-citing-its-definition-and-implementation-in-the-source-code."><span class="header-section-number">2.1.7</span> Explain the <code>throughput:vector</code> statistic in the analysis ﬁle by citing its definition and implementation in the source code.</h3>
+<section id="explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code." class="level3" data-number="2.1.7">
+<h3 data-number="2.1.7" class="anchored" data-anchor-id="explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code."><span class="header-section-number">2.1.7</span> Explain the <code>throughput:vector</code> statistic in the analysis file by citing its definition and implementation in the source code.</h3>
+<p>Information can be found in <code>/inet-4.5.4/src/inet/applications/udpapp/UdpBasicApp.ned</code> (l. 55-57):</p>
+<pre class="plaintext"><code>@signal[packetReceived](type=inet::Packet);
+@statistic[packetReceived](title="packets received"; source=packetReceived; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);
+@statistic[throughput](title="throughput"; unit=bps; source="throughput(packetReceived)"; record=vector);</code></pre>
+<p>The <code>packetReceived</code> signal, of type <code>inet::Packet</code>, is emitted whenever a packet is received by the module, serving as the foundation for related metrics. The <code>packetReceived</code> statistic uses this signal to record three key metrics: the total number of packets received (<code>count</code>), the cumulative size of received packets (<code>sum(packetBytes)</code>), and the individual sizes of packets as a time-series vector (<code>vector(packetBytes)</code>), with no interpolation applied to the discrete events. The <code>throughput</code> statistic, also derived from the <code>packetReceived</code> signal, calculates and records the throughput (rate of data received) in bits per second (<code>bps</code>) as a time-series vector. This setup allows for detailed tracking and analysis of packet reception and throughput performance over time during the simulation.</p>
+<p>The analysis file (<code>Wireless.vec</code>) contains the following lines related to the <code>throughput:vector</code> statistic:</p>
+<pre class="plaintext"><code>vector 82 WirelessA.hostB.app[0] throughput:vector ETV
+attr source throughput(packetReceived)
+attr title throughput</code></pre>
+<p>These lines show that the <code>throughput:vector</code> statistic is associated with the <code>packetReceived</code> signal from the <code>hostB</code> application module, providing insights into the throughput performance of the network.</p>
 </section>
 </section>
 <section id="step-2" class="level2" data-number="2.2">
@@ -286,8 +390,13 @@ div.csl-indent {
 </section>
 <section id="references" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> References</h1>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-inet_wireless_tutorial2024" class="csl-entry" role="listitem">
+INET Framework. n.d. <span>“<span>INET Framework - Wireless Tutorial</span>.”</span> Accessed December 6, 2024. <a href="https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html">https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html</a>.
+</div>
+<div id="ref-op_env2024" class="csl-entry" role="listitem">
+OMNeT++. n.d. <span>“<span>OMNeT++ Environment</span>.”</span> Accessed December 6, 2024. <a href="https://omnetpp.org/opp_env">https://omnetpp.org/opp_env</a>.
+</div>
 </div>
 </section>
 
