@@ -1,0 +1,95 @@
+---
+title: "Wireless Network Modeling and Simulation"
+subtitle: "UGE: M2 SIA - Project Report"
+authors:
+  - name: "Luca Uckermann"
+    affiliation:
+      - id: THK
+        name: "University of Applied Sciences (TH Köln)"
+        city: "Cologne"
+        country: "Germany"
+    corresponding: true
+    orcid: "0009-0005-2957-6331"
+bibliography: references.bib
+date: last-modified
+number-sections: true
+execute: 
+  eval: true
+  echo: false
+  output: true
+  warning: false
+  error: false
+  include: true
+
+abstract: |
+  Abstract
+---
+
+# Introduction
+
+# Configuration
+
+## Step 1
+
+### Simulate and measure the transmission rate.
+
+### Is the inter-arrival time for the packets memoryless? Explain your answer.
+
+### Compute the total number of packets transmitted during the simulation time. Explain why the transmission rate was around 660 kbps.
+
+### Reproduce the simulation and confirm that the results remain consistent.
+
+### Modify the random number generator seed in `omnetpp.ini`. How does changing the seed impact the simulation results?
+
+### List all parameters of the MAC protocol used in `AckingWirelessInterface` with references to the source code.
+
+### Explain the `throughput:vector` statistic in the analysis ﬁle by citing its definition and implementation in the source code.
+
+## Step 2
+
+### Visualize the radio transmission range.
+
+### Change the communication range so that host B is no longer reachable from host A. Visualize the new range.
+
+### Provide simulation results for the transmission rate and explain them.
+
+## Step 3
+
+### Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.
+
+## Step 4
+
+### Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.
+
+## Step 5 {#sec-step_5}
+
+### Enable event log recording in the runtime GUI.
+
+### Open the `.elog` ﬁle with a text editor and explain its contents.
+
+### Analyze the event log using the sequence chart and event log table tools. Filter events for `hostA+udp`, `hostB+udp`, and `hostR1+ip`.
+
+### Take screenshots and comment on both a complete and an incomplete transmission sequence chart.
+
+## Step 6 {#sec-step_6}
+
+### 1. Compare the number of packets received by host B in this configuration with the results from `Configuration Step 5` (@sec-step_5). Explain the difference.
+
+## Step 7 {#sec-step_7}
+
+### Measure the `numRetry` statistic for `Configuration Steps 6` (@sec-step_6) and `7` (@sec-step_7).
+
+### Cite the source code where the logic for `numRetry` is defined.
+
+### Explain the differences in this metric between the two configurations.
+
+## Step 9
+
+### Plot the throughput vector at host B and identify the time when the transmission stops.
+
+# Conclusion
+
+# References
+
+::: {#refs}
+:::
