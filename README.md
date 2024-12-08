@@ -12,7 +12,7 @@ pip install opp_env
 opp_env install --init -w inet-workspace inet-4.5.4 omnetpp-6.1.0
 ```
 
-## Run OMNeT++
+## Start OMNeT++
 
 ```bash
 cd inet-workspace
@@ -20,10 +20,16 @@ opp_env shell
 omnetpp
 ```
 
-## Select workspace
+## Run Simulation
+
+```bash
+/inet-workspace/inet-4.5.4/tutorials/wireless/omnetpp.ini
+```
 
 ## Preview Report (Quarto)
 
 ```bash
 quarto preview ./report/
+
+quarto render ./report/ --to pdf
 ```
