@@ -26,10 +26,24 @@ omnetpp
 /inet-workspace/inet-4.5.4/tutorials/wireless/omnetpp.ini
 ```
 
-## Preview Report (Quarto)
+## Report (Quarto)
+
+### Preview Report (HTML)
 
 ```bash
 quarto preview ./report/
+```
 
+### Render Report (PDF)
+
+```bash
 quarto render ./report/ --to pdf
+```
+
+### Render Report (IEEE PDF)
+
+```bash
+cd report/
+quarto add dfolio/quarto-ieee
+quarto render . --to ieee-pdf
 ```
