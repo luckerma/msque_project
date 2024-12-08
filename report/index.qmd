@@ -380,9 +380,17 @@ This information provides a comprehensive view of packet flow and module interac
 
 @fig-event_log_start shows the first events of the simulation. At **Event #4** it starts with the `bind` operation for `UDPData-0` in `hostA`. This step represents the initialization of the UDP communication, including the creation of the packet and its preparation for transmission. At this point, the `UDPData-0` message is scheduled for delivery, marking the start of its journey from `hostA`.
 
-![Event Log Complete Transmission](resources/elog_1.png){#fig-event_log_complete}
+The illustration is further simplified by using the *Network Interface* option in the *Preset Configuration*:
 
-@fig-event_log_complete illustrates the successful transmission of `UDPData-0` from `hostA` to `hostB`. After being created (see @fig-event_log_start) the packet reaches `hostB` at **Event #13** where a reception event (`receptionTimer`) is triggered. Subsequently, the packet undergoes processing at `hostB`, as indicated by the intermediate arcs representing its flow through different reception stages. The transmission is completed when `UDPData-0` is fully received and processed by `hostB`, marking the conclusion of a successful end-to-end communication (**Event #34 & #36**).
+![Event Log Simplified](resources/elog_events.png){#fig-event_log_events}
+
+As shown in @fig-event_log_events, the sequence chart shows the status of three packets (`UDPData-813`, `UDPData-814` and `UDPData-815`):
+
+- **`UDPData-813`:** Successfully reaches `hostB` after being forwarded by `hostR1`. The arcs indicate a complete flow from `hostA` to `hostB` via `hostR1`.
+- **`UDPData-814`:** Is transmitted from `hostA` to `hostR1` but does not reach `hostB`. The absence of arcs from `hostR1` to `hostB` indicates that the packet was either dropped or lost.
+- **`UDPData-815`:** Also fails to reach `hostB` after being sent to `hostR1`. Similar to `UDPData-814`, the packet appears to have been dropped or interrupted before reaching its final destination.
+
+This simplified view highlights the occurrence of packet loss or forwarding problems at `hostR1`, indicating the need for further analysis of routing or interference effects in the network.
 
 ## Step 6. Using CSMA to better utilize the medium {#sec-step_6}
 
@@ -459,7 +467,7 @@ The `numRetry` metric for `Configuration Step 6` is `0` for all hosts, because o
 
 ### Plot the `throughput vector` at `hostB` and identify the time when the transmission stops.
 
-The following plot is generated using the "Line Chart with Matplotlib" tool in the runtime GUI:
+The following plot is generated using the *Line Chart with Matplotlib* tool in the runtime GUI:
 
 ![Throughput Vector Host B](resources/throughput.png){#fig-throughput_vector}
 
