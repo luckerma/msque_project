@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-06">
+<meta name="dcterms.date" content="2024-12-08">
 
 <title>Wireless Network Modeling and Simulation</title>
 <style>
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -54,6 +88,9 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-7bfb9ce031f0150bcdd0059ffcd3ab40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -86,15 +123,16 @@ window.Quarto = {
 </script>
 
 <meta name="citation_title" content="Wireless Network Modeling and Simulation">
-<meta name="citation_abstract" content="Abstract
+<meta name="citation_abstract" content="This project focuses on modeling and simulating wireless networks using the INET Framework within the OMNeT++ simulation environment. By following the wireless tutorial provided by the INET Framework, the project explores key concepts such as transmission rates, protocol behavior, event logs, and performance metrics. Configurations like two hosts communicating wirelessly, introducing interference, and utilizing CSMA with and without acknowledgment mechanisms are analyzed.
 ">
 <meta name="citation_author" content="Luca Uckermann">
-<meta name="citation_publication_date" content="2024-12-06">
-<meta name="citation_cover_date" content="2024-12-06">
+<meta name="citation_publication_date" content="2024-12-08">
+<meta name="citation_cover_date" content="2024-12-08">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-06">
+<meta name="citation_online_date" content="2024-12-08">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=INET Framework - Wireless Tutorial;,citation_author=INET Framework;,citation_fulltext_html_url=https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html;">
+<meta name="citation_reference" content="citation_title=OMNeT++;,citation_author=OMNeT++;,citation_fulltext_html_url=https://omnetpp.org;">
 <meta name="citation_reference" content="citation_title=OMNeT++ Environment;,citation_author=OMNeT++;,citation_fulltext_html_url=https://omnetpp.org/opp_env;">
 </head>
 
@@ -130,7 +168,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 6, 2024</p>
+              <p class="date">December 8, 2024</p>
             </div>
           </div>
           
@@ -144,7 +182,7 @@ window.Quarto = {
     <div>
       <div class="abstract">
         <div class="block-title">Abstract</div>
-        <p>Abstract</p>
+        <p>This project focuses on modeling and simulating wireless networks using the INET Framework within the OMNeT++ simulation environment. By following the wireless tutorial provided by the INET Framework, the project explores key concepts such as transmission rates, protocol behavior, event logs, and performance metrics. Configurations like two hosts communicating wirelessly, introducing interference, and utilizing CSMA with and without acknowledgment mechanisms are analyzed.</p>
       </div>
     </div>
 
@@ -160,7 +198,7 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration"><span class="header-section-number">2</span> Configuration</a>
   <ul class="collapse">
-  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1"><span class="header-section-number">2.1</span> Step 1</a>
+  <li><a href="#step-1.-two-hosts-communicating-wirelessly" id="toc-step-1.-two-hosts-communicating-wirelessly" class="nav-link" data-scroll-target="#step-1.-two-hosts-communicating-wirelessly"><span class="header-section-number">2.1</span> Step 1. Two hosts communicating wirelessly</a>
   <ul class="collapse">
   <li><a href="#simulate-and-measure-the-transmission-rate." id="toc-simulate-and-measure-the-transmission-rate." class="nav-link" data-scroll-target="#simulate-and-measure-the-transmission-rate."><span class="header-section-number">2.1.1</span> Simulate and measure the transmission rate.</a></li>
   <li><a href="#is-the-inter-arrival-time-for-the-packets-memoryless-explain-your-answer." id="toc-is-the-inter-arrival-time-for-the-packets-memoryless-explain-your-answer." class="nav-link" data-scroll-target="#is-the-inter-arrival-time-for-the-packets-memoryless-explain-your-answer."><span class="header-section-number">2.1.2</span> Is the inter-arrival time for the packets memoryless? Explain your answer.</a></li>
@@ -170,40 +208,40 @@ window.Quarto = {
   <li><a href="#list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." id="toc-list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." class="nav-link" data-scroll-target="#list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code."><span class="header-section-number">2.1.6</span> List all parameters of the MAC protocol used in <code>AckingWirelessInterface</code> with references to the source code.</a></li>
   <li><a href="#explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code." id="toc-explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code." class="nav-link" data-scroll-target="#explain-the-throughputvector-statistic-in-the-analysis-file-by-citing-its-definition-and-implementation-in-the-source-code."><span class="header-section-number">2.1.7</span> Explain the <code>throughput:vector</code> statistic in the analysis file by citing its definition and implementation in the source code.</a></li>
   </ul></li>
-  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2"><span class="header-section-number">2.2</span> Step 2</a>
+  <li><a href="#step-2.-setting-up-some-animations" id="toc-step-2.-setting-up-some-animations" class="nav-link" data-scroll-target="#step-2.-setting-up-some-animations"><span class="header-section-number">2.2</span> Step 2. Setting up some animations</a>
   <ul class="collapse">
   <li><a href="#visualize-the-radio-transmission-range." id="toc-visualize-the-radio-transmission-range." class="nav-link" data-scroll-target="#visualize-the-radio-transmission-range."><span class="header-section-number">2.2.1</span> Visualize the radio transmission range.</a></li>
   <li><a href="#change-the-communication-range-so-that-host-b-is-no-longer-reachable-from-host-a.-visualize-the-new-range." id="toc-change-the-communication-range-so-that-host-b-is-no-longer-reachable-from-host-a.-visualize-the-new-range." class="nav-link" data-scroll-target="#change-the-communication-range-so-that-host-b-is-no-longer-reachable-from-host-a.-visualize-the-new-range."><span class="header-section-number">2.2.2</span> Change the communication range so that host B is no longer reachable from host A. Visualize the new range.</a></li>
   <li><a href="#provide-simulation-results-for-the-transmission-rate-and-explain-them." id="toc-provide-simulation-results-for-the-transmission-rate-and-explain-them." class="nav-link" data-scroll-target="#provide-simulation-results-for-the-transmission-rate-and-explain-them."><span class="header-section-number">2.2.3</span> Provide simulation results for the transmission rate and explain them.</a></li>
   </ul></li>
-  <li><a href="#step-3" id="toc-step-3" class="nav-link" data-scroll-target="#step-3"><span class="header-section-number">2.3</span> Step 3</a>
+  <li><a href="#step-3.-adding-more-nodes-and-decreasing-the-communication-range" id="toc-step-3.-adding-more-nodes-and-decreasing-the-communication-range" class="nav-link" data-scroll-target="#step-3.-adding-more-nodes-and-decreasing-the-communication-range"><span class="header-section-number">2.3</span> Step 3. Adding more nodes and decreasing the communication range</a>
   <ul class="collapse">
   <li><a href="#identify-the-type-of-wireless-interfaces-for-the-new-hosts.-explain-your-answer-with-references-to-the-source-code." id="toc-identify-the-type-of-wireless-interfaces-for-the-new-hosts.-explain-your-answer-with-references-to-the-source-code." class="nav-link" data-scroll-target="#identify-the-type-of-wireless-interfaces-for-the-new-hosts.-explain-your-answer-with-references-to-the-source-code."><span class="header-section-number">2.3.1</span> Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.</a></li>
   </ul></li>
-  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4"><span class="header-section-number">2.4</span> Step 4</a>
+  <li><a href="#step-4.-setting-up-static-routing" id="toc-step-4.-setting-up-static-routing" class="nav-link" data-scroll-target="#step-4.-setting-up-static-routing"><span class="header-section-number">2.4</span> Step 4. Setting up static routing</a>
   <ul class="collapse">
   <li><a href="#use-the-runtime-gui-to-capture-a-screenshot-showing-the-ip-addresses-of-all-hosts-in-the-network." id="toc-use-the-runtime-gui-to-capture-a-screenshot-showing-the-ip-addresses-of-all-hosts-in-the-network." class="nav-link" data-scroll-target="#use-the-runtime-gui-to-capture-a-screenshot-showing-the-ip-addresses-of-all-hosts-in-the-network."><span class="header-section-number">2.4.1</span> Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.</a></li>
   </ul></li>
-  <li><a href="#sec-step_5" id="toc-sec-step_5" class="nav-link" data-scroll-target="#sec-step_5"><span class="header-section-number">2.5</span> Step 5</a>
+  <li><a href="#sec-step_5" id="toc-sec-step_5" class="nav-link" data-scroll-target="#sec-step_5"><span class="header-section-number">2.5</span> Step 5. Taking interference into account</a>
   <ul class="collapse">
   <li><a href="#enable-event-log-recording-in-the-runtime-gui." id="toc-enable-event-log-recording-in-the-runtime-gui." class="nav-link" data-scroll-target="#enable-event-log-recording-in-the-runtime-gui."><span class="header-section-number">2.5.1</span> Enable event log recording in the runtime GUI.</a></li>
-  <li><a href="#open-the-.elog-ﬁle-with-a-text-editor-and-explain-its-contents." id="toc-open-the-.elog-ﬁle-with-a-text-editor-and-explain-its-contents." class="nav-link" data-scroll-target="#open-the-.elog-ﬁle-with-a-text-editor-and-explain-its-contents."><span class="header-section-number">2.5.2</span> Open the <code>.elog</code> ﬁle with a text editor and explain its contents.</a></li>
+  <li><a href="#open-the-.elog-file-with-a-text-editor-and-explain-its-contents." id="toc-open-the-.elog-file-with-a-text-editor-and-explain-its-contents." class="nav-link" data-scroll-target="#open-the-.elog-file-with-a-text-editor-and-explain-its-contents."><span class="header-section-number">2.5.2</span> Open the <code>.elog</code> file with a text editor and explain its contents.</a></li>
   <li><a href="#analyze-the-event-log-using-the-sequence-chart-and-event-log-table-tools.-filter-events-for-hostaudp-hostbudp-and-hostr1ip." id="toc-analyze-the-event-log-using-the-sequence-chart-and-event-log-table-tools.-filter-events-for-hostaudp-hostbudp-and-hostr1ip." class="nav-link" data-scroll-target="#analyze-the-event-log-using-the-sequence-chart-and-event-log-table-tools.-filter-events-for-hostaudp-hostbudp-and-hostr1ip."><span class="header-section-number">2.5.3</span> Analyze the event log using the sequence chart and event log table tools. Filter events for <code>hostA+udp</code>, <code>hostB+udp</code>, and <code>hostR1+ip</code>.</a></li>
   <li><a href="#take-screenshots-and-comment-on-both-a-complete-and-an-incomplete-transmission-sequence-chart." id="toc-take-screenshots-and-comment-on-both-a-complete-and-an-incomplete-transmission-sequence-chart." class="nav-link" data-scroll-target="#take-screenshots-and-comment-on-both-a-complete-and-an-incomplete-transmission-sequence-chart."><span class="header-section-number">2.5.4</span> Take screenshots and comment on both a complete and an incomplete transmission sequence chart.</a></li>
   </ul></li>
-  <li><a href="#sec-step_6" id="toc-sec-step_6" class="nav-link" data-scroll-target="#sec-step_6"><span class="header-section-number">2.6</span> Step 6</a>
+  <li><a href="#sec-step_6" id="toc-sec-step_6" class="nav-link" data-scroll-target="#sec-step_6"><span class="header-section-number">2.6</span> Step 6. Using CSMA to better utilize the medium</a>
   <ul class="collapse">
   <li><a href="#compare-the-number-of-packets-received-by-host-b-in-this-configuration-with-the-results-from-configuration-step-5-sec-step_5.-explain-the-difference." id="toc-compare-the-number-of-packets-received-by-host-b-in-this-configuration-with-the-results-from-configuration-step-5-sec-step_5.-explain-the-difference." class="nav-link" data-scroll-target="#compare-the-number-of-packets-received-by-host-b-in-this-configuration-with-the-results-from-configuration-step-5-sec-step_5.-explain-the-difference."><span class="header-section-number">2.6.1</span> 1. Compare the number of packets received by host B in this configuration with the results from <code>Configuration Step 5</code> (Section&nbsp;2.5). Explain the difference.</a></li>
   </ul></li>
-  <li><a href="#sec-step_7" id="toc-sec-step_7" class="nav-link" data-scroll-target="#sec-step_7"><span class="header-section-number">2.7</span> Step 7</a>
+  <li><a href="#sec-step_7" id="toc-sec-step_7" class="nav-link" data-scroll-target="#sec-step_7"><span class="header-section-number">2.7</span> Step 7. Turning on ACKs in CSMA</a>
   <ul class="collapse">
-  <li><a href="#measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7-sec-step_7." id="toc-measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7-sec-step_7." class="nav-link" data-scroll-target="#measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7-sec-step_7."><span class="header-section-number">2.7.1</span> Measure the <code>numRetry</code> statistic for <code>Configuration Steps 6</code> (Section&nbsp;2.6) and <code>7</code> (Section&nbsp;2.7).</a></li>
+  <li><a href="#measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7." id="toc-measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7." class="nav-link" data-scroll-target="#measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7."><span class="header-section-number">2.7.1</span> Measure the <code>numRetry</code> statistic for <code>Configuration Steps 6</code> (Section&nbsp;2.6) and <code>7</code>.</a></li>
   <li><a href="#cite-the-source-code-where-the-logic-for-numretry-is-defined." id="toc-cite-the-source-code-where-the-logic-for-numretry-is-defined." class="nav-link" data-scroll-target="#cite-the-source-code-where-the-logic-for-numretry-is-defined."><span class="header-section-number">2.7.2</span> Cite the source code where the logic for <code>numRetry</code> is defined.</a></li>
   <li><a href="#explain-the-differences-in-this-metric-between-the-two-configurations." id="toc-explain-the-differences-in-this-metric-between-the-two-configurations." class="nav-link" data-scroll-target="#explain-the-differences-in-this-metric-between-the-two-configurations."><span class="header-section-number">2.7.3</span> Explain the differences in this metric between the two configurations.</a></li>
   </ul></li>
-  <li><a href="#step-9" id="toc-step-9" class="nav-link" data-scroll-target="#step-9"><span class="header-section-number">2.8</span> Step 9</a>
+  <li><a href="#step-9.-configuring-node-movements" id="toc-step-9.-configuring-node-movements" class="nav-link" data-scroll-target="#step-9.-configuring-node-movements"><span class="header-section-number">2.8</span> Step 9. Configuring node movements</a>
   <ul class="collapse">
-  <li><a href="#plot-the-throughput-vector-at-host-b-and-identify-the-time-when-the-transmission-stops." id="toc-plot-the-throughput-vector-at-host-b-and-identify-the-time-when-the-transmission-stops." class="nav-link" data-scroll-target="#plot-the-throughput-vector-at-host-b-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the throughput vector at host B and identify the time when the transmission stops.</a></li>
+  <li><a href="#plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops." id="toc-plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops." class="nav-link" data-scroll-target="#plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the <code>throughput vector</code> at <code>hostB</code> and identify the time when the transmission stops.</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3</span> Conclusion</a></li>
@@ -222,13 +260,22 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>INET wireless tutorial <span class="citation" data-cites="inet_wireless_tutorial2024">(<a href="#ref-inet_wireless_tutorial2024" role="doc-biblioref">INET Framework n.d.</a>)</span>.</p>
-<p>op_env <span class="citation" data-cites="op_env2024">(<a href="#ref-op_env2024" role="doc-biblioref">OMNeT++ n.d.</a>)</span>.</p>
+<p>The project is based on the INET wireless tutorial <span class="citation" data-cites="inet_wireless_tutorial2024">(<a href="#ref-inet_wireless_tutorial2024" role="doc-biblioref">INET Framework n.d.</a>)</span>.</p>
+<p>To install the INET Framework, the following steps were taken:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install opp_env</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opp_env</span> install <span class="at">--init</span> <span class="at">-w</span> inet-workspace inet-4.5.4 omnetpp-6.1.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The INET Framework was installed using the <code>opp_env</code> tool <span class="citation" data-cites="opp_env2024">(<a href="#ref-opp_env2024" role="doc-biblioref">OMNeT++ n.d.b</a>)</span>, which simplifies the installation process by managing the dependencies and environment variables. The INET Framework version <code>4.5.4</code> and OMNeT++ version <code>6.1.0</code> were installed in the <code>inet-workspace/</code> directory.</p>
+<p>To run the OMNeT++ IDE <span class="citation" data-cites="omnetpp2024">(<a href="#ref-omnetpp2024" role="doc-biblioref">OMNeT++ n.d.a</a>)</span>, the following commands were executed:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> inet-workspace</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opp_env</span> shell</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">omnetpp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The simulation was executed using the IDE, which provides a graphical interface for configuring and running simulations. There the <code>wireless</code> tutorial was selected, and the simulation was started (<code>/inet-4.5.4/tutorials/wireless/omnetpp.ini</code>).</p>
 </section>
 <section id="configuration" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Configuration</h1>
-<section id="step-1" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="step-1"><span class="header-section-number">2.1</span> Step 1</h2>
+<p>Each of the following steps corresponds to a specific configuration in the tutorial. The results and analysis for each configuration are presented in detail.</p>
+<section id="step-1.-two-hosts-communicating-wirelessly" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="step-1.-two-hosts-communicating-wirelessly"><span class="header-section-number">2.1</span> Step 1. Two hosts communicating wirelessly</h2>
 <section id="simulate-and-measure-the-transmission-rate." class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="simulate-and-measure-the-transmission-rate."><span class="header-section-number">2.1.1</span> Simulate and measure the transmission rate.</h3>
 <p>After each transmitted packet, the following output is generated:</p>
@@ -252,7 +299,9 @@ Reception ended: successfully (8.504 ms 1063 B)</code></pre>
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="compute-the-total-number-of-packets-transmitted-during-the-simulation-time.-explain-why-the-transmission-rate-was-around-660-kbps."><span class="header-section-number">2.1.3</span> Compute the total number of packets transmitted during the simulation time. Explain why the transmission rate was around 660 kbps.</h3>
 <p>The simulation stops after <code>20</code> seconds with the following output:</p>
 <pre class="plaintext"><code>Simulation time limit reached -- at t=20s, event #20746
-Transmission count = 1596</code></pre>
+Transmission count = 1596
+
+WirelessA.hostB.app[0]: received 1596 packets</code></pre>
 <p>A total of <code>1596</code> packets were transmitted during the simulation time.</p>
 <pre class="plaintext"><code>totalLengthField = 1028</code></pre>
 <p>The total length of one packet is <code>1028</code> bytes.</p>
@@ -274,7 +323,9 @@ Transmission count = 1596</code></pre>
 
 Transmission count = 1596
 Signal send count = 1596
-Reception computation count = 1596</code></pre>
+Reception computation count = 1596
+
+WirelessA.hostB.app[0]: received 1596 packets</code></pre>
 <p>The transmission count is always <code>1596</code> packets, which confirms the consistency of the results. The event number is also the same in all runs, which indicates that the simulation is deterministic.</p>
 </section>
 <section id="modify-the-random-number-generator-seed-in-omnetpp.ini.-how-does-changing-the-seed-impact-the-simulation-results" class="level3" data-number="2.1.5">
@@ -286,7 +337,9 @@ Reception computation count = 1596</code></pre>
 
 Transmission count = 1617
 Signal send count = 1617
-Reception computation count = 1617</code></pre>
+Reception computation count = 1617
+
+WirelessA.hostB.app[0]: received 1617 packets</code></pre>
 <p>The transmission count is now <code>1617</code> packets, which is different from the previous result. This shows that changing the seed impacts the simulation results. In this case, the number of transmitted packets increased by <code>21</code>.</p>
 </section>
 <section id="list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." class="level3" data-number="2.1.6">
@@ -321,72 +374,270 @@ attr title throughput</code></pre>
 <p>These lines show that the <code>throughput:vector</code> statistic is associated with the <code>packetReceived</code> signal from the <code>hostB</code> application module, providing insights into the throughput performance of the network.</p>
 </section>
 </section>
-<section id="step-2" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="step-2"><span class="header-section-number">2.2</span> Step 2</h2>
+<section id="step-2.-setting-up-some-animations" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="step-2.-setting-up-some-animations"><span class="header-section-number">2.2</span> Step 2. Setting up some animations</h2>
 <section id="visualize-the-radio-transmission-range." class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="visualize-the-radio-transmission-range."><span class="header-section-number">2.2.1</span> Visualize the radio transmission range.</h3>
+<div id="fig-transmission" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-transmission-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/transmission.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Transmission Range"><img src="resources/transmission.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-transmission-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Transmission Range
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-transmission" class="quarto-xref">Figure&nbsp;1</a> visualizes the radio transmission range, showing the communication radius around <code>hostA</code>represented by the blue circle. The range is set to <code>500m</code>, as specified in the <code>omnetpp.ini</code> configuration file:</p>
+<pre class="plaintext"><code>*.host*.wlan[0].radio.transmitter.communicationRange = 500m</code></pre>
 </section>
 <section id="change-the-communication-range-so-that-host-b-is-no-longer-reachable-from-host-a.-visualize-the-new-range." class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="change-the-communication-range-so-that-host-b-is-no-longer-reachable-from-host-a.-visualize-the-new-range."><span class="header-section-number">2.2.2</span> Change the communication range so that host B is no longer reachable from host A. Visualize the new range.</h3>
+<div id="fig-transmission-reduced" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-transmission-reduced-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/transmission_reduced.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Reduced Transmission Range"><img src="resources/transmission_reduced.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-transmission-reduced-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Reduced Transmission Range
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-transmission-reduced" class="quarto-xref">Figure&nbsp;2</a> illustrates the reduced communication range, where the blue circle around <code>hostA</code> no longer reaches <code>hostB</code>. This change was achieved by modifying the communication range parameter in the <code>omnetpp.ini</code> file:</p>
+<pre class="plaintext"><code>*.host*.wlan[0].radio.transmitter.communicationRange = 250m</code></pre>
 </section>
 <section id="provide-simulation-results-for-the-transmission-rate-and-explain-them." class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="provide-simulation-results-for-the-transmission-rate-and-explain-them."><span class="header-section-number">2.2.3</span> Provide simulation results for the transmission rate and explain them.</h3>
+<p>To provide results, the range is set back to <code>500m</code> in the <code>omnetpp.ini</code> file. The simulation is run, and the following output is generated:</p>
+<pre class="plaintext"><code>Simulation time limit reached -- at t=20s, event #21022
+
+Radio signal arrival computation count = 1617
+Transmission count = 1617
+Signal send count = 1617
+Reception computation count = 1617
+
+WirelessA.hostB.app[0]: received 1617 packets</code></pre>
+<p>The transmission count is <code>1617</code> packets, which is consistent with the previous result (with <code>seed-set = 1337</code>). Adding animation did not affect the transmission rate The animation only visualizes the network topology and does not interfere with the simulation logic.</p>
+<p>Leaving the communication range at <code>250m</code> would result in <code>hostB</code> being unreachable from <code>hostA</code>:</p>
+<pre class="plaintext"><code>WirelessA.hostB.app[0]: received 0 packets</code></pre>
+<p>The output confirms that no packets were received by <code>hostB</code>, indicating that the reduced communication range successfully prevented communication between the two hosts.</p>
 </section>
 </section>
-<section id="step-3" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="step-3"><span class="header-section-number">2.3</span> Step 3</h2>
+<section id="step-3.-adding-more-nodes-and-decreasing-the-communication-range" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="step-3.-adding-more-nodes-and-decreasing-the-communication-range"><span class="header-section-number">2.3</span> Step 3. Adding more nodes and decreasing the communication range</h2>
 <section id="identify-the-type-of-wireless-interfaces-for-the-new-hosts.-explain-your-answer-with-references-to-the-source-code." class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="identify-the-type-of-wireless-interfaces-for-the-new-hosts.-explain-your-answer-with-references-to-the-source-code."><span class="header-section-number">2.3.1</span> Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.</h3>
+<p>The three new hosts (<code>hostR1</code>, <code>hostR2</code>, and <code>hostR3</code>) are defined in the <code>WirelessB.ned</code> network configuration:</p>
+<pre class="plaintext"><code>network WirelessB extends WirelessA
+{
+    submodules:
+        hostR1: &lt;default("WirelessHost")&gt; like INetworkNode {
+            @display("p=250,300");
+        }
+        hostR2: &lt;default("WirelessHost")&gt; like INetworkNode {
+            @display("p=150,450");
+        }
+        hostR3: &lt;default("WirelessHost")&gt; like INetworkNode {
+            @display("p=350,450");
+        }
+}</code></pre>
+<p>The <code>WirelessHost</code> is defined in <code>inet-4.5.4/src/inet/node/inet/WirelessHost.ned</code>:</p>
+<pre class="plaintext"><code>module WirelessHost extends StandardHost
+{
+    parameters:
+        numWlanInterfaces = default(1);
+        @display("i=device/wifilaptop");
+}</code></pre>
+<p>“Models a host with (default) one wireless (802.11) card in infrastructure mode” (l. 11).</p>
+<p>The wireless interfaces for these hosts are specified in the <code>omnetpp.ini</code> file:</p>
+<pre class="plaintext"><code>*.host*.wlan[0].typename = "AckingWirelessInterface"</code></pre>
+<p>Again the <code>AckingWirelessInterface</code> type is used for the wireless interfaces of all hosts in the network.</p>
 </section>
 </section>
-<section id="step-4" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="step-4"><span class="header-section-number">2.4</span> Step 4</h2>
+<section id="step-4.-setting-up-static-routing" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="step-4.-setting-up-static-routing"><span class="header-section-number">2.4</span> Step 4. Setting up static routing</h2>
 <section id="use-the-runtime-gui-to-capture-a-screenshot-showing-the-ip-addresses-of-all-hosts-in-the-network." class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="use-the-runtime-gui-to-capture-a-screenshot-showing-the-ip-addresses-of-all-hosts-in-the-network."><span class="header-section-number">2.4.1</span> Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.</h3>
+<p>Setting the following option in the <code>omnetpp.ini</code> file enables these debugging information:</p>
+<pre class="plaintext"><code>INFO:     hostA [...] {inet_addr:10.0.0.1/24[...]}
+INFO:     hostB [...] {inet_addr:10.0.0.2/24[...]}
+INFO:     hostR1 [...] {inet_addr:10.0.0.3/24[...]}
+INFO:     hostR2 [...] {inet_addr:10.0.0.4/24[...]}
+INFO:     hostR3 [...] {inet_addr:10.0.0.5/24[...]}</code></pre>
+<p>Otherwise the routing table can be displayed in the runtime GUI by selecting the <code>hostA</code> module and clicking on the <code>Routing Table</code> in the <code>ipv4</code> section:</p>
+<div id="fig-routing_table" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-routing_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/routing_table.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Routing Table Host A"><img src="resources/routing_table.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-routing_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Routing Table Host A
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-routing_table" class="quarto-xref">Figure&nbsp;3</a> shows the routing table for <code>hostA</code>, displaying the IP addresses of all hosts in the network.</p>
 </section>
 </section>
 <section id="sec-step_5" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="sec-step_5"><span class="header-section-number">2.5</span> Step 5</h2>
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-step_5"><span class="header-section-number">2.5</span> Step 5. Taking interference into account</h2>
 <section id="enable-event-log-recording-in-the-runtime-gui." class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="enable-event-log-recording-in-the-runtime-gui."><span class="header-section-number">2.5.1</span> Enable event log recording in the runtime GUI.</h3>
+<div id="fig-event_logging" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-event_logging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/event_logging.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Enable Event Logging"><img src="resources/event_logging.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-event_logging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Enable Event Logging
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-event_logging" class="quarto-xref">Figure&nbsp;4</a> shows the event log recording option enabled in the runtime GUI.</p>
 </section>
-<section id="open-the-.elog-ﬁle-with-a-text-editor-and-explain-its-contents." class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="open-the-.elog-ﬁle-with-a-text-editor-and-explain-its-contents."><span class="header-section-number">2.5.2</span> Open the <code>.elog</code> ﬁle with a text editor and explain its contents.</h3>
+<section id="open-the-.elog-file-with-a-text-editor-and-explain-its-contents." class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="open-the-.elog-file-with-a-text-editor-and-explain-its-contents."><span class="header-section-number">2.5.2</span> Open the <code>.elog</code> file with a text editor and explain its contents.</h3>
+<p>An excerpt from the <code>.elog</code> file is as follows:</p>
+<pre class="plaintext"><code>CM id 243061 tid 243061 eid 243061 etid 243061 c omnetpp::cMessage n UDPData-0 pe -1
+BS id 243061 tid 243061 eid 243061 etid 243061 c inet::Packet n UDPData-0 l 8000 m 54 pe 4
+
+SH sm 54 sg 3
+CMB sm 54 tm 55 m arrived
+
+ES id 242948 tid 242948 eid 242948 etid 242948 c inet::ClockEvent n sendTimer k 2 sm 54 st 0.007276585767 am 54 at 0.026732847636 pe 14
+
+CMB sm 51 tm 25 m packetReceivedFromUpper
+CME
+CMB sm 51 tm 27 m packetReceivedFromUpper
+CME
+CMB sm 51 tm 30 m packetReceivedFromUpper
+
+CMB sm 61 tm 4 m transmitPacket
+BS id 242927 tid 242927 eid 242927 etid 242927 c omnetpp::cMessage n removeNonInterferingTransmissions sm 4 st 0.002868038578 am 4 at 0.021373372834 pe 9
+
+CMB sm 182 tm 30 m packetReceivedFromLower
+CME
+
+MDC id 74 d "t=processed 1 pk (1008 B);p=550,300;b=600,5,,,,1"
+
+CMB sm 75 tm 69 m findBestMatchingRoute(10.0.0.2)
+CME
+CMB sm 75 tm 76 m resolveL3Address
+CME</code></pre>
+<p>In general the file captures detailed sequence of events and interactions between modules during the simulation. Key events include:</p>
+<ol type="1">
+<li><strong>Message Creation:</strong> A packet (<code>UDPData-0</code>) is created as an instance of <code>inet::Packet</code> with a size of <code>8000</code> bits and processed through submodules (<code>CM</code> and <code>BS</code> events).</li>
+<li><strong>Signal Handling and Arrival:</strong> Signals are processed through submodules (<code>SH</code> events), and packets arrive at the target submodules (<code>CMB</code> events).</li>
+<li><strong>Event Scheduling:</strong> Timers and network events (<code>ES</code>) are scheduled for execution, such as the <code>sendTimer</code> for managing transmissions.</li>
+<li><strong>Packet Processing and Transmission:</strong> Packets are received from upper layers, processed and transmitted at various stages (<code>CMB</code> with <code>packetReceivedFromUpper</code> and <code>transmitPacket</code>).</li>
+<li><strong>Address Resolution:</strong> Submodules resolve Layer 3 addresses and identify routes (<code>CMB</code> <code>findBestMatchingRoute</code>).</li>
+<li><strong>Visualization Updates:</strong> Visualization logs (<code>MDC</code>) indicate processed packets and their visual representation in the simulation canvas.</li>
+</ol>
+<p>This information provides a comprehensive view of packet flow and module interactions, which can be used to analyze system behavior and performance.</p>
 </section>
 <section id="analyze-the-event-log-using-the-sequence-chart-and-event-log-table-tools.-filter-events-for-hostaudp-hostbudp-and-hostr1ip." class="level3" data-number="2.5.3">
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="analyze-the-event-log-using-the-sequence-chart-and-event-log-table-tools.-filter-events-for-hostaudp-hostbudp-and-hostr1ip."><span class="header-section-number">2.5.3</span> Analyze the event log using the sequence chart and event log table tools. Filter events for <code>hostA+udp</code>, <code>hostB+udp</code>, and <code>hostR1+ip</code>.</h3>
+<div id="fig-filter_event_log" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-filter_event_log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/filter_event_log.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Filter Event Log"><img src="resources/filter_event_log.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-filter_event_log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Filter Event Log
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-filter_event_log" class="quarto-xref">Figure&nbsp;5</a> shows the event log filtering options for <code>hostA+udp</code>, <code>hostB+udp</code>, and <code>hostR1+ip</code> in the runtime GUI.</p>
 </section>
 <section id="take-screenshots-and-comment-on-both-a-complete-and-an-incomplete-transmission-sequence-chart." class="level3" data-number="2.5.4">
 <h3 data-number="2.5.4" class="anchored" data-anchor-id="take-screenshots-and-comment-on-both-a-complete-and-an-incomplete-transmission-sequence-chart."><span class="header-section-number">2.5.4</span> Take screenshots and comment on both a complete and an incomplete transmission sequence chart.</h3>
+<div id="fig-event_log_start" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-event_log_start-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/elog_0.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Event Log Start"><img src="resources/elog_0.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-event_log_start-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Event Log Start
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-event_log_start" class="quarto-xref">Figure&nbsp;6</a> shows the first events occurring in the simulation. At <strong>Event #4</strong> it begins with the <code>bind</code> operation for <code>UDPData-0</code> in <code>hostA</code>. This step signifies the initialization of the UDP communication, including the creation of the packet and its preparation for transmission. At this point, the <code>UDPData-0</code> message is scheduled for delivery, marking the start of its journey from <code>hostA</code>.</p>
+<div id="fig-event_log_complete" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-event_log_complete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/elog_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Event Log Complete Transmission"><img src="resources/elog_1.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-event_log_complete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Event Log Complete Transmission
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-event_log_complete" class="quarto-xref">Figure&nbsp;7</a> illustrates the successful transmission of <code>UDPData-0</code> from <code>hostA</code> to <code>hostB</code>. After creation (see <a href="#fig-event_log_start" class="quarto-xref">Figure&nbsp;6</a>) the packet reaches <code>hostB</code> at <strong>Event #13</strong>, where a reception event (<code>receptionTimer</code>) is triggered. Subsequently, the packet undergoes processing at <code>hostB</code>, as indicated by the intermediate arcs representing its flow through different reception stages. The transmission is completed when <code>UDPData-0</code> is fully received and processed by <code>hostB</code>, marking the conclusion of a successful end-to-end communication (<strong>Event #34 &amp; #36</strong>).</p>
 </section>
 </section>
 <section id="sec-step_6" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="sec-step_6"><span class="header-section-number">2.6</span> Step 6</h2>
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-step_6"><span class="header-section-number">2.6</span> Step 6. Using CSMA to better utilize the medium</h2>
 <section id="compare-the-number-of-packets-received-by-host-b-in-this-configuration-with-the-results-from-configuration-step-5-sec-step_5.-explain-the-difference." class="level3" data-number="2.6.1">
 <h3 data-number="2.6.1" class="anchored" data-anchor-id="compare-the-number-of-packets-received-by-host-b-in-this-configuration-with-the-results-from-configuration-step-5-sec-step_5.-explain-the-difference."><span class="header-section-number">2.6.1</span> 1. Compare the number of packets received by host B in this configuration with the results from <code>Configuration Step 5</code> (<a href="#sec-step_5" class="quarto-xref">Section&nbsp;2.5</a>). Explain the difference.</h3>
+<p>Running the simulation with the CSMA configuration yields the following output:</p>
+<pre class="plaintext"><code>WirelessB.hostB.app[0]: received 1090 packets</code></pre>
+<p>In <a href="#sec-step_5" class="quarto-xref">Section&nbsp;2.5</a> it was:</p>
+<pre class="plaintext"><code>WirelessB.hostB.app[0]: received 139 packets</code></pre>
+<p>The number of packets received by <code>hostB</code> in this configuration is <code>1090</code>, which is significantly higher than the <code>139</code> packets received in the previous configuration. This difference can be attributed to the use of CSMA in the current configuration, which allows for better utilization of the medium by coordinating access to the channel among multiple nodes. The CSMA protocol helps reduce collisions and interference, enabling more successful packet transmissions and higher throughput compared to the previous configuration.</p>
 </section>
 </section>
 <section id="sec-step_7" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="sec-step_7"><span class="header-section-number">2.7</span> Step 7</h2>
-<section id="measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7-sec-step_7." class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7-sec-step_7."><span class="header-section-number">2.7.1</span> Measure the <code>numRetry</code> statistic for <code>Configuration Steps 6</code> (<a href="#sec-step_6" class="quarto-xref">Section&nbsp;2.6</a>) and <code>7</code> (<a href="#sec-step_7" class="quarto-xref">Section&nbsp;2.7</a>).</h3>
+<h2 data-number="2.7" class="anchored" data-anchor-id="sec-step_7"><span class="header-section-number">2.7</span> Step 7. Turning on ACKs in CSMA</h2>
+<section id="measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7." class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="measure-the-numretry-statistic-for-configuration-steps-6-sec-step_6-and-7."><span class="header-section-number">2.7.1</span> Measure the <code>numRetry</code> statistic for <code>Configuration Steps 6</code> (<a href="#sec-step_6" class="quarto-xref">Section&nbsp;2.6</a>) and <code>7</code>.</h3>
+<p>The <code>numRetry</code> statistic is measured in the simulation output (<code>Wireless06.sca</code>):</p>
+<pre class="plaintext"><code>scalar WirelessB.hostA.wlan[0].mac numRetry 0
+scalar WirelessB.hostB.wlan[0].mac numRetry 0
+scalar WirelessB.hostR1.wlan[0].mac numRetry 0
+scalar WirelessB.hostR2.wlan[0].mac numRetry 0
+scalar WirelessB.hostR3.wlan[0].mac numRetry 0</code></pre>
+<p>and (<code>Wireless07.sca</code>):</p>
+<pre class="plaintext"><code>scalar WirelessB.hostA.wlan[0].mac numRetry 67
+scalar WirelessB.hostB.wlan[0].mac numRetry 0
+scalar WirelessB.hostR1.wlan[0].mac numRetry 67
+scalar WirelessB.hostR2.wlan[0].mac numRetry 0
+scalar WirelessB.hostR3.wlan[0].mac numRetry 0</code></pre>
 </section>
 <section id="cite-the-source-code-where-the-logic-for-numretry-is-defined." class="level3" data-number="2.7.2">
 <h3 data-number="2.7.2" class="anchored" data-anchor-id="cite-the-source-code-where-the-logic-for-numretry-is-defined."><span class="header-section-number">2.7.2</span> Cite the source code where the logic for <code>numRetry</code> is defined.</h3>
+<p>The logic for <code>numRetry</code> is implemented in <code>/inet-4.5.4/src/inet/linklayer/csmaca/CsmaCaMac.cc</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>numRetry <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>WATCH<span class="op">(</span>numRetry<span class="op">);</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> CsmaCaMac<span class="op">::</span>finish<span class="op">()</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    recordScalar<span class="op">(</span><span class="st">"numRetry"</span><span class="op">,</span> numRetry<span class="op">);</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> CsmaCaMac<span class="op">::</span>retryCurrentTransmission<span class="op">()</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    ASSERT<span class="op">(</span>retryCounter <span class="op">&lt;</span> retryLimit<span class="op">);</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    retryCounter<span class="op">++;</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    numRetry<span class="op">++;</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    generateBackoffPeriod<span class="op">();</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>At the start it is initialized with <code>0</code> and tracked using <code>WATCH</code>. In the <code>finish()</code> method, <code>numRetry</code> is recorded as a scalar statistic using <code>recordScalar()</code>. Each time a packet fails to transmit successfully and a retry is initiated, the <code>retryCurrentTransmission()</code> method increments the <code>numRetry</code>.</p>
 </section>
 <section id="explain-the-differences-in-this-metric-between-the-two-configurations." class="level3" data-number="2.7.3">
 <h3 data-number="2.7.3" class="anchored" data-anchor-id="explain-the-differences-in-this-metric-between-the-two-configurations."><span class="header-section-number">2.7.3</span> Explain the differences in this metric between the two configurations.</h3>
+<p>The <code>numRetry</code> statistic for <code>Configuration Step 6</code> is <code>0</code> for all hosts, because of the absence of ACKs. In <code>Configuration Step 7</code>, the <code>numRetry</code> statistic is <code>67</code> for <code>hostA</code> and <code>hostR1</code>, indicating the number of retransmissions due to failed packet delivery attempts. The increase in <code>numRetry</code> when ACKs are enabled is due to the acknowledgment mechanism requiring retries when packets are lost or ACKs are not received. While this increases the reliability of the network, it also results in higher retransmission counts, especially in scenarios with higher traffic or interference.</p>
 </section>
 </section>
-<section id="step-9" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="step-9"><span class="header-section-number">2.8</span> Step 9</h2>
-<section id="plot-the-throughput-vector-at-host-b-and-identify-the-time-when-the-transmission-stops." class="level3" data-number="2.8.1">
-<h3 data-number="2.8.1" class="anchored" data-anchor-id="plot-the-throughput-vector-at-host-b-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the throughput vector at host B and identify the time when the transmission stops.</h3>
+<section id="step-9.-configuring-node-movements" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="step-9.-configuring-node-movements"><span class="header-section-number">2.8</span> Step 9. Configuring node movements</h2>
+<section id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops." class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the <code>throughput vector</code> at <code>hostB</code> and identify the time when the transmission stops.</h3>
 </section>
 </section>
 </section>
 <section id="conclusion" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Conclusion</h1>
+<p>The wireless network simulations conducted in this project demonstrate the effectiveness of OMNeT++ and the INET Framework in modeling complex network scenarios. Key insights include the importance of proper protocol configuration, such as enabling acknowledgment mechanisms in CSMA to ensure reliability, despite the increased retransmission overhead. Throughput measurements and event log analysis revealed the impact of communication range, interference, and mobility on network performance. Moreover, static and dynamic routing configurations were successfully implemented and visualized, providing a clear understanding of node interactions. Overall, the project highlights the versatility and utility of simulation tools for studying wireless network behavior and optimizing protocol design.</p>
 </section>
 <section id="references" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> References</h1>
@@ -394,8 +645,11 @@ attr title throughput</code></pre>
 <div id="ref-inet_wireless_tutorial2024" class="csl-entry" role="listitem">
 INET Framework. n.d. <span>“<span>INET Framework - Wireless Tutorial</span>.”</span> Accessed December 6, 2024. <a href="https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html">https://inet.omnetpp.org/docs/tutorials/wireless/doc/index.html</a>.
 </div>
-<div id="ref-op_env2024" class="csl-entry" role="listitem">
-OMNeT++. n.d. <span>“<span>OMNeT++ Environment</span>.”</span> Accessed December 6, 2024. <a href="https://omnetpp.org/opp_env">https://omnetpp.org/opp_env</a>.
+<div id="ref-omnetpp2024" class="csl-entry" role="listitem">
+OMNeT++. n.d.a. <span>“<span>OMNeT++</span>.”</span> Accessed December 7, 2024. <a href="https://omnetpp.org">https://omnetpp.org</a>.
+</div>
+<div id="ref-opp_env2024" class="csl-entry" role="listitem">
+———. n.d.b. <span>“<span>OMNeT++ Environment</span>.”</span> Accessed December 6, 2024. <a href="https://omnetpp.org/opp_env">https://omnetpp.org/opp_env</a>.
 </div>
 </div>
 </section>
@@ -820,6 +1074,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
