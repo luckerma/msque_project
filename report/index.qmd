@@ -157,6 +157,8 @@ WirelessA.hostB.app[0]: received 1617 packets
 
 The `transmission count` as well as the packets received by `hostB` are now `1617` packets, which is different from the previous result. This shows that changing the seed affects the simulation results. In this case, the number of transmitted packets increased by `21`.
 
+From here on, the seed is set to `1337` for all simulations to allow reproducibility.
+
 ### List all parameters of the MAC protocol used in `AckingWirelessInterface` with references to the source code.
 
 The parameters in the `omnetpp.ini` file are as follows:
@@ -456,6 +458,20 @@ The `numRetry` metric for `Configuration Step 6` is `0` for all hosts, because o
 ## Step 9. Configuring node movements
 
 ### Plot the `throughput vector` at `hostB` and identify the time when the transmission stops.
+
+The following plot is generated using the "Line Chart with Matplotlib" tool in the runtime GUI:
+
+![Throughput Vector Host B](resources/throughput.png){#fig-throughput_vector}
+
+@fig-throughput_vector shows the `throughput vector` at `hostB` over time. Transmission stops at approximately `t=10.5s`, as indicated by the sharp decline in throughput to `0 bps`. This corresponds to the moment in the simulation when `hostR1` leaves the communication range of `hostA`, leading to the termination of packet transmission.
+
+![Simulation at t=10](resources/t_10.png){#fig-simulation_t10}
+
+@fig-simulation_t10 shows the simulation at `t=10s`, where the nodes have moved to new positions. Here `hostR1` is barely within the communication range of `hostA`, leading to the resulting reduction in throughput and eventual termination of transmissions.
+
+![Simulation at t=12](resources/t_12.png){#fig-simulation_t12}
+
+@fig-simulation_t12 shows the simulation at `t=12s`, where `hostR1` has moved further away from `hostA`, resulting in complete loss of communication and termination of packet transmission. A total of `557` packets were received by `hostB` before the transmission stopped.
 
 # Conclusion
 
