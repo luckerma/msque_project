@@ -563,17 +563,24 @@ Figure&nbsp;6: Event Log Start
 </figure>
 </div>
 <p><a href="#fig-event_log_start" class="quarto-xref">Figure&nbsp;6</a> shows the first events of the simulation. At <strong>Event #4</strong> it starts with the <code>bind</code> operation for <code>UDPData-0</code> in <code>hostA</code>. This step represents the initialization of the UDP communication, including the creation of the packet and its preparation for transmission. At this point, the <code>UDPData-0</code> message is scheduled for delivery, marking the start of its journey from <code>hostA</code>.</p>
-<div id="fig-event_log_complete" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>The illustration is further simplified by using the <em>Network Interface</em> option in the <em>Preset Configuration</em>:</p>
+<div id="fig-event_log_events" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-event_log_complete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="resources/elog_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Event Log Complete Transmission"><img src="resources/elog_1.png" class="img-fluid figure-img"></a>
+<div aria-describedby="fig-event_log_events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/elog_events.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Event Log Simplified"><img src="resources/elog_events.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-event_log_complete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Event Log Complete Transmission
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-event_log_events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Event Log Simplified
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-event_log_complete" class="quarto-xref">Figure&nbsp;7</a> illustrates the successful transmission of <code>UDPData-0</code> from <code>hostA</code> to <code>hostB</code>. After being created (see <a href="#fig-event_log_start" class="quarto-xref">Figure&nbsp;6</a>) the packet reaches <code>hostB</code> at <strong>Event #13</strong> where a reception event (<code>receptionTimer</code>) is triggered. Subsequently, the packet undergoes processing at <code>hostB</code>, as indicated by the intermediate arcs representing its flow through different reception stages. The transmission is completed when <code>UDPData-0</code> is fully received and processed by <code>hostB</code>, marking the conclusion of a successful end-to-end communication (<strong>Event #34 &amp; #36</strong>).</p>
+<p>As shown in <a href="#fig-event_log_events" class="quarto-xref">Figure&nbsp;7</a>, the sequence chart shows the status of three packets (<code>UDPData-813</code>, <code>UDPData-814</code> and <code>UDPData-815</code>):</p>
+<ul>
+<li><strong><code>UDPData-813</code>:</strong> Successfully reaches <code>hostB</code> after being forwarded by <code>hostR1</code>. The arcs indicate a complete flow from <code>hostA</code> to <code>hostB</code> via <code>hostR1</code>.</li>
+<li><strong><code>UDPData-814</code>:</strong> Is transmitted from <code>hostA</code> to <code>hostR1</code> but does not reach <code>hostB</code>. The absence of arcs from <code>hostR1</code> to <code>hostB</code> indicates that the packet was either dropped or lost.</li>
+<li><strong><code>UDPData-815</code>:</strong> Also fails to reach <code>hostB</code> after being sent to <code>hostR1</code>. Similar to <code>UDPData-814</code>, the packet appears to have been dropped or interrupted before reaching its final destination.</li>
+</ul>
+<p>This simplified view highlights the occurrence of packet loss or forwarding problems at <code>hostR1</code>, indicating the need for further analysis of routing or interference effects in the network.</p>
 </section>
 </section>
 <section id="sec-step_6" class="level2" data-number="2.6">
@@ -634,7 +641,7 @@ scalar WirelessB.hostR3.wlan[0].mac numRetry 0</code></pre>
 <h2 data-number="2.8" class="anchored" data-anchor-id="step-9.-configuring-node-movements"><span class="header-section-number">2.8</span> Step 9. Configuring node movements</h2>
 <section id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops." class="level3" data-number="2.8.1">
 <h3 data-number="2.8.1" class="anchored" data-anchor-id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the <code>throughput vector</code> at <code>hostB</code> and identify the time when the transmission stops.</h3>
-<p>The following plot is generated using the “Line Chart with Matplotlib” tool in the runtime GUI:</p>
+<p>The following plot is generated using the <em>Line Chart with Matplotlib</em> tool in the runtime GUI:</p>
 <div id="fig-throughput_vector" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-throughput_vector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
