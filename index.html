@@ -342,6 +342,7 @@ Reception computation count = 1617
 
 WirelessA.hostB.app[0]: received 1617 packets</code></pre>
 <p>The <code>transmission count</code> as well as the packets received by <code>hostB</code> are now <code>1617</code> packets, which is different from the previous result. This shows that changing the seed affects the simulation results. In this case, the number of transmitted packets increased by <code>21</code>.</p>
+<p>From here on, the seed is set to <code>1337</code> for all simulations to allow reproducibility.</p>
 </section>
 <section id="list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code." class="level3" data-number="2.1.6">
 <h3 data-number="2.1.6" class="anchored" data-anchor-id="list-all-parameters-of-the-mac-protocol-used-in-ackingwirelessinterface-with-references-to-the-source-code."><span class="header-section-number">2.1.6</span> List all parameters of the MAC protocol used in <code>AckingWirelessInterface</code> with references to the source code.</h3>
@@ -633,6 +634,40 @@ scalar WirelessB.hostR3.wlan[0].mac numRetry 0</code></pre>
 <h2 data-number="2.8" class="anchored" data-anchor-id="step-9.-configuring-node-movements"><span class="header-section-number">2.8</span> Step 9. Configuring node movements</h2>
 <section id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops." class="level3" data-number="2.8.1">
 <h3 data-number="2.8.1" class="anchored" data-anchor-id="plot-the-throughput-vector-at-hostb-and-identify-the-time-when-the-transmission-stops."><span class="header-section-number">2.8.1</span> Plot the <code>throughput vector</code> at <code>hostB</code> and identify the time when the transmission stops.</h3>
+<p>The following plot is generated using the “Line Chart with Matplotlib” tool in the runtime GUI:</p>
+<div id="fig-throughput_vector" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-throughput_vector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/throughput.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Throughput Vector Host B"><img src="resources/throughput.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-throughput_vector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Throughput Vector Host B
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-throughput_vector" class="quarto-xref">Figure&nbsp;8</a> shows the <code>throughput vector</code> at <code>hostB</code> over time. Transmission stops at approximately <code>t=10.5s</code>, as indicated by the sharp decline in throughput to <code>0 bps</code>. This corresponds to the moment in the simulation when <code>hostR1</code> leaves the communication range of <code>hostA</code>, leading to the termination of packet transmission.</p>
+<div id="fig-simulation_t10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simulation_t10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/t_10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Simulation at t=10"><img src="resources/t_10.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulation_t10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Simulation at t=10
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-simulation_t10" class="quarto-xref">Figure&nbsp;9</a> shows the simulation at <code>t=10s</code>, where the nodes have moved to new positions. Here <code>hostR1</code> is barely within the communication range of <code>hostA</code>, leading to the resulting reduction in throughput and eventual termination of transmissions.</p>
+<div id="fig-simulation_t12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simulation_t12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/t_12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Simulation at t=12"><img src="resources/t_12.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulation_t12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Simulation at t=12
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-simulation_t12" class="quarto-xref">Figure&nbsp;10</a> shows the simulation at <code>t=12s</code>, where <code>hostR1</code> has moved further away from <code>hostA</code>, resulting in complete loss of communication and termination of packet transmission. A total of <code>557</code> packets were received by <code>hostB</code> before the transmission stopped.</p>
 </section>
 </section>
 </section>
