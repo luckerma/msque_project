@@ -1,6 +1,6 @@
 ---
 title: "Wireless Network Modeling and Simulation"
-subtitle: "UGE: M2 SIA - Project Report"
+subtitle: "UGE: M2 SIA - MSQue Project Report"
 authors:
   - name: "Luca Uckermann"
     affiliation:
@@ -9,12 +9,13 @@ authors:
         city: "Cologne"
         country: "Germany"
     corresponding: true
+    email: "luca_simon.uckermann@smail.th-koeln.de"
     orcid: "0009-0005-2957-6331"
 bibliography: references.bib
 date: last-modified
 number-sections: true
 link-citations: true
-execute: 
+execute:
   eval: true
   echo: true
   output: true
