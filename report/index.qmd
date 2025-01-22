@@ -24,7 +24,7 @@ execute:
   include: true
 
 abstract: |
-  This project focuses on the modeling and simulation of wireless networks using the INET framework within the OMNeT++ simulation environment. Following the wireless tutorial provided by the INET framework, the project explores key concepts such as transmission rates, protocol behavior, event logs and performance metrics. Configurations such as two hosts communicating wirelessly, introducing interference and using CSMA with and without acknowledgement mechanisms are analyzed.
+  This project focuses on the modeling and simulation of wireless networks using the INET framework within the OMNeT++ simulation environment. Following the wireless tutorial provided by the INET framework, the project explores key concepts such as transmission rates, protocol behavior, event logs and performance metrics. Configurations such as two hosts communicating wirelessly, introducing interference and using CSMA with and without acknowledgment mechanisms are analyzed.
 ---
 
 # Introduction
@@ -37,7 +37,7 @@ opp_env install --init\
   -w inet-workspace inet-4.5.4 omnetpp-6.1.0
 ```
 
-The INET framework was installed using the `opp_env` tool [@opp_env2024], which simplifies the installation process by managing the dependencies and environment variables. The INET Framework version `4.5.4` and OMNeT++ version `6.1.0` were installed in the `inet-workspace/` directory.
+The INET framework was installed using the `opp_env` tool [@opp_env2024], which simplifies the installation process by managing dependencies and environment variables. The INET framework version `4.5.4` and OMNeT++ version `6.1.0` were installed in the `inet-workspace/` directory.
 
 To run the OMNeT++ IDE [@omnetpp2024], the following commands were executed:
 
@@ -74,7 +74,7 @@ One line of the 'omnetpp.ini' configuration file is as follows:
   exponential(12ms)
 ```
 
-From the configuration, it is clear that the inter-arrival times are memoryless because the `sendInterval` is explicitly defined as `exponential(12ms)`. This is a key property of exponential distributions, which are memoryless.
+From the configuration it is clear that the inter-arrival times are memoryless because the `sendInterval` is explicitly defined as `exponential(12ms)`. This is a key property of exponential distributions, which are memoryless.
 
 Another approach is to analyze the output of the simulation:
 
@@ -127,7 +127,7 @@ Equation @eq-transmission_rate shows that the transmission rate is about `656 kb
 
 ### Reproduce the simulation and confirm that the results remain consistent.
 
-All simulation runs produce the same result:
+All simulation runs give the same result:
 
 ```plaintext
 Simulation time limit reached
@@ -141,13 +141,13 @@ WirelessA.hostB.app[0]:
   received 1596 packets
 ```
 
-The `transmission count` and the packets received by `hostB` are always `1596` packets, confirming the consistency of the results. The last event number `#20746` is also the same in all runs, indicating that the simulation is deterministic.
+The `transmission count` and the packets received by `hostB` are always `1596` packets, confirming the consistency of the results. The last event number `#20746` is also the same for all runs, indicating that the simulation is deterministic.
 
 ### Modify the random number generator seed in `omnetpp.ini`. How does changing the seed impact the simulation results?
 
-To modify the seed of the random number generator, add the following line in `omnetpp.ini`:
+To modify the seed of the random number generator, add the following line to `omnetpp.ini`:
 
-```plaintext
+```ini
 seed-set = 1337
 ```
 
@@ -172,7 +172,7 @@ From here on, the seed is set to `1337` for all simulations to allow reproducibi
 
 The parameters in the `omnetpp.ini` file are as follows:
 
-```plaintext
+```ini
 *.host*.wlan[0].\
   typename = "AckingWirelessInterface"
 *.host*.wlan[0].\
@@ -242,9 +242,9 @@ These lines show that the `throughput:vector` statistic is associated with the `
 
 ![Transmission Range](resources/transmission.png){#fig-transmission}
 
-@fig-transmission visualizes the radio transmission range, showing the communication radius around `hostA`, represented by the blue circle. The range is set to `500m`, as specified in the `omnetpp.ini` configuration file:
+@fig-transmission visualizes the radio transmission range, showing the communication radius around `hostA`, represented by the blue circle. The range is set to `500m` as specified in the `omnetpp.ini` configuration file:
 
-```plaintext
+```ini
 *.host*.wlan[0].radio.transmitter.\
   communicationRange = 500m
 ```
@@ -255,7 +255,7 @@ These lines show that the `throughput:vector` statistic is associated with the `
 
 @fig-transmission-reduced illustrates the reduced communication range, where the blue circle around `hostA` no longer reaches `hostB`. This change was achieved by modifying the communication range parameter in the `omnetpp.ini` file:
 
-```plaintext
+```ini
 *.host*.wlan[0].radio.transmitter.\
   communicationRange = 250m
 ```
@@ -277,7 +277,7 @@ WirelessA.hostB.app[0]:
   received 1617 packets
 ```
 
-The transmission count is `1617` packets, which is consistent with the previous result (with `seed-set = 1337`). Adding animation did not affect the transmission rate The animation only visualizes the network topology and does not interfere with the simulation logic.
+The transmission count is `1617` packets, which is the same as the previous result (with `seed-set = 1337`). The animation only visualizes the network topology and does not interfere with the simulation logic.
 
 Leaving the communication range at `250m` would result in `hostB` being unreachable from `hostA`:
 
@@ -285,7 +285,7 @@ Leaving the communication range at `250m` would result in `hostB` being unreacha
 WirelessA.hostB.app[0]: received 0 packets
 ```
 
-The output confirms that no packets were received by `hostB`, indicating that the reduced communication range successfully prevented communication between the two hosts.
+The output confirms that no packets were received from `hostB`, indicating that the reduced communication range successfully prevented communication between the two hosts.
 
 ## Step 3. Adding more nodes and decreasing the communication range
 
@@ -327,7 +327,7 @@ module WirelessHost extends StandardHost
 
 The wireless interfaces for these hosts are specified in the `omnetpp.ini` file:
 
-```plaintext
+```ini
 *.host*.wlan[0].typename =\
   "AckingWirelessInterface"
 ```
@@ -338,22 +338,26 @@ Again, the `AckingWirelessInterface` type is used for the wireless interfaces of
 
 ### Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.
 
-Setting the following option in the `omnetpp.ini` file enables this debugging information:
+Set the following option in the `omnetpp.ini` file to enable this debugging information:
 
-```plaintext
-INFO:
-hostA [...] {inet_addr:10.0.0.1/24[...]}
-hostB [...] {inet_addr:10.0.0.2/24[...]}
-hostR1 [...] {inet_addr:10.0.0.3/24[...]}
-hostR2 [...] {inet_addr:10.0.0.4/24[...]}
-hostR3 [...] {inet_addr:10.0.0.5/24[...]}
+```ini
+INFO: hostA [...]
+  {inet_addr:10.0.0.1/24[...]}
+INFO: hostB [...]
+  {inet_addr:10.0.0.2/24[...]}
+INFO: hostR1 [...]
+  {inet_addr:10.0.0.3/24[...]}
+INFO: hostR2 [...]
+  {inet_addr:10.0.0.4/24[...]}
+INFO: hostR3 [...]
+  {inet_addr:10.0.0.5/24[...]}
 ```
 
-Alternatively, the routing table can be viewed in the runtime GUI by selecting the `hostA` module and clicking on the `Routing Table` in the `ipv4` section:
+Alternatively, the routing table can be viewed in the runtime GUI by selecting the `hostA` module and clicking on `Routing Table` in the `ipv4` section:
 
 ![Routing Table Host A](resources/routing_table.png){#fig-routing_table}
 
-@fig-routing_table shows the routing table for `hostA`, displaying the IP addresses of all hosts in the network.
+@fig-routing_table displays the routing table for `hostA`, showing the IP addresses of all hosts in the network.
 
 ## Step 5. Taking interference into account {#sec-step_5}
 
@@ -361,7 +365,7 @@ Alternatively, the routing table can be viewed in the runtime GUI by selecting t
 
 ![Enable Event Logging](resources/event_logging.png){#fig-event_logging}
 
-@fig-event_logging shows the event log recording option enabled in the runtime GUI.
+@fig-event_logging shows that the "Eventlog Recording" option is enabled in the runtime GUI.
 
 ### Open the `.elog` file with a text editor and explain its contents.
 
@@ -415,14 +419,14 @@ CMB sm 75 tm 76 m
 CME
 ```
 
-In general the file captures detailed sequence of events and interactions between modules during the simulation. Key events include:
+In general, the file captures the detailed sequence of events and interactions between modules during the simulation. Key events include:
 
 1. **Message Creation:** A packet (`UDPData-0`) is created as an instance of `inet::Packet` with a size of `8000` bits and processed by submodules (`CM` and `BS` events).
-2. **Signal Handling and Arrival:** Signals are processed through submodules (`SH` events) and packets arrive at the target submodules (`CMB` events).
+2. **Signal Handling and Arrival:** Signals are processed by submodules (`SH` events) and packets arrive at target submodules (`CMB` events).
 3. **Event Scheduling:** Timers and network events (`ES`) are scheduled for execution, such as the `sendTimer` for managing transmissions.
 4. **Packet Processing and Transmission:** Packets are received from upper layers, processed and transmitted at various stages (`CMB` with `packetReceivedFromUpper` and `transmitPacket`).
 5. **Address Resolution:** Submodules resolve layer 3 addresses and identify routes (`CMB` `findBestMatchingRoute`).
-6. **Visualization Updates:** Visualization logs (`MDC`) indicate processed packets and their visual representation in the simulation canvas.
+6. **Visualization Updates:** Visualization logs (`MDC`) show processed packets and their visual representation on the simulation canvas.
 
 This information provides a comprehensive view of packet flow and module interactions that can be used to analyze system behavior and performance.
 
@@ -448,7 +452,7 @@ As shown in @fig-event_log_events, the sequence chart shows the status of three 
 - **`UDPData-814`:** Is transmitted from `hostA` to `hostR1` but does not reach `hostB`. The absence of arcs from `hostR1` to `hostB` indicates that the packet was either dropped or lost.
 - **`UDPData-815`:** Also fails to reach `hostB` after being sent to `hostR1`. Similar to `UDPData-814`, the packet appears to have been dropped or interrupted before reaching its final destination.
 
-This simplified view highlights the occurrence of packet loss or forwarding problems at `hostR1`, indicating the need for further analysis of routing or interference effects in the network.
+This simplified view highlights the occurrence of packet loss or forwarding problems at `hostR1`, indicating the need for further analysis of routing or congestion effects on the network.
 
 ## Step 6. Using CSMA to better utilize the medium {#sec-step_6}
 
@@ -531,7 +535,7 @@ At the start it is initialized with `0` and tracked using `WATCH`. In the `finis
 
 ### Explain the differences in this metric between the two configurations.
 
-The `numRetry` metric for `Configuration Step 6` is `0` for all hosts, because of the absence of ACKs. In `Configuration Step 7`, the `numRetry` statistic is `67` for `hostA` and `hostR1`, indicating the number of retransmissions due to failed packet delivery attempts. The increase in `numRetry` when ACKs are enabled is due to the acknowledegment mechanism requiring retries when packets are lost or ACKs are not received. While this increases the reliability of the network, it also results in higher retransmission counts, especially in scenarios with higher traffic or interference.
+The `numRetry` metric for `Configuration Step 6` is `0` for all hosts because of the lack of ACKs. In `Configuration Step 7`, the `numRetry` statistic is `67` for `hostA` and `hostR1`, indicating the number of retransmissions due to failed packet delivery attempts. The increase in `numRetry` when ACKs are enabled is due to the acknowledgment mechanism requiring retries when packets are lost or ACKs are not received. While this increases the reliability of the network, it also results in higher retransmission counts, especially in scenarios with higher traffic or interference.
 
 ## Step 8. Configuring node movements
 
@@ -541,11 +545,11 @@ The following plot is generated using the *Line Chart with Matplotlib* tool in t
 
 ![Throughput Vector Host B](resources/throughput.png){#fig-throughput_vector}
 
-@fig-throughput_vector shows the `throughput vector` at `hostB` over time. Transmission stops at approximately `t=10.5s`, as indicated by the sharp decline in throughput to `0 bps`. This corresponds to the moment in the simulation when `hostR1` leaves the communication range of `hostA`, leading to the termination of packet transmission.
+@fig-throughput_vector shows the `throughput vector` at `hostB` over time. Transmission stops at about `t=10.5s`, as indicated by the sharp drop in throughput to `0 bps`. This corresponds to the moment in the simulation when `hostR1` leaves the communication range of `hostA`, leading to the termination of packet transmission.
 
 ![Simulation at t=10](resources/t_10.png){#fig-simulation_t10}
 
-@fig-simulation_t10 shows the simulation at `t=10s`, where the nodes have moved to new positions. Here `hostR1` is barely within the communication range of `hostA`, leading to the resulting reduction in throughput and eventual termination of transmissions.
+@fig-simulation_t10 shows the simulation at `t=10s`, where the nodes have moved to new positions. Here, `hostR1` is barely within the communication range of `hostA`, leading to the resulting reduction in throughput and eventual termination of transmissions.
 
 ![Simulation at t=12](resources/t_12.png){#fig-simulation_t12}
 
@@ -553,7 +557,7 @@ The following plot is generated using the *Line Chart with Matplotlib* tool in t
 
 # Conclusion
 
-The wireless network simulations performed in this project demonstrate the effectiveness of OMNeT++ and the INET framework in modeling complex network scenarios. Key findings include the importance of proper protocol configuration, such as enabling acknowledgement mechanisms in CSMA, to ensure reliability despite the increased retransmission overhead. Throughput measurements and event log analysis revealed the impact of communication range, interference and mobility on network performance. In addition, static and dynamic routing configurations were successfully implemented and visualized, providing a clear understanding of node interactions. Overall, the project highlights the versatility and utility of simulation tools for studying wireless network behavior and optimizing protocol design.
+The wireless network simulations performed in this project demonstrate the effectiveness of OMNeT++ and the INET framework in modeling complex network scenarios. Key findings include the importance of proper protocol configuration, such as enabling acknowledgment mechanisms in CSMA, to ensure reliability despite the increased retransmission overhead. Throughput measurements and event log analysis revealed the impact of communication range, interference and mobility on network performance. In addition, static and dynamic routing configurations were successfully implemented and visualized, providing a clear understanding of node interactions. Overall, the project highlights the versatility and utility of simulation tools for studying wireless network behavior and optimizing protocol design.
 
 # References
 
