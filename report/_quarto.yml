@@ -6,7 +6,10 @@ manuscript:
 
 format:
   html: default
-  #pdf: default
+  pdf:
+    toc: true
+  ieee-pdf:
+    toc: true
 
 execute:
   freeze: false
