@@ -27,8 +27,6 @@ abstract: |
   This project focuses on the modeling and simulation of wireless networks using the INET framework within the OMNeT++ simulation environment. Following the wireless tutorial provided by the INET framework, the project explores key concepts such as transmission rates, protocol behavior, event logs and performance metrics. Configurations such as two hosts communicating wirelessly, introducing interference and using CSMA with and without acknowledgment mechanisms are analyzed.
 ---
 
-# Introduction
-
 This project is based on the INET wireless tutorial [@inet_wireless_tutorial2024]. To install the INET framework [@inet2024] the following steps were taken:
 
 ```bash
@@ -47,15 +45,14 @@ opp_env shell
 omnetpp
 ```
 
-The simulation was run using the IDE, which provides a graphical interface for configuring and running simulations. The `wireless` tutorial was selected and the simulation started (`/inet-4.5.4/tutorials/wireless/omnetpp.ini`).
+The simulation was run using the IDE, which provides a graphical interface for configuring and running simulations. The `wireless` tutorial was selected and the simulation started (`tutorials/wireless/omnetpp.ini`).
 
-# Configuration
 
 Each of the following steps corresponds to a specific configuration in the tutorial. The results and analysis for each configuration are presented in detail.
 
-## Step 1. Two hosts communicating wirelessly
+# Step 1. Two hosts communicating wirelessly
 
-### Simulate and measure the transmission rate.
+## Simulate and measure the transmission rate.
 
 After each packet transmitted, the following output is generated:
 
@@ -65,9 +62,9 @@ UDPData-1 (8.504 ms 1063 B)
 
 The output shows that the packet `UDPData-1` was transmitted after `8.504 ms` with a size of `1063 bytes`.
 
-### Is the inter-arrival time for the packets memoryless? Explain your answer.
+## Is the inter-arrival time for the packets memoryless? Explain your answer.
 
-One line of the 'omnetpp.ini' configuration file is as follows:
+One line of the `omnetpp.ini` configuration file is as follows:
 
 ```ini
 *.hostA.app[0].sendInterval =\
@@ -90,7 +87,7 @@ Reception ended: successfully
 
 Even after many events, the packet arrival time is still constant at `8.504 ms`, which is a characteristic of memoryless processes.
 
-### Compute the total number of packets transmitted during the simulation time. Explain why the transmission rate was around 660 kbps.
+## Compute the total number of packets transmitted during the simulation time. Explain why the transmission rate was around 660 kbps.
 
 The simulation stops after `20` seconds with the following output:
 
@@ -121,11 +118,11 @@ $$
 &= 656275.2 \text{bits/s} \\
 &= 656.2752 \text{kbps}
 \end{aligned}
-$$ {#eq-transmission_rate}
+$${#eq-transmission_rate}
 
 Equation @eq-transmission_rate shows that the transmission rate is about `656 kbps`, which is close to the expected value of `660 kbps`.
 
-### Reproduce the simulation and confirm that the results remain consistent.
+## Reproduce the simulation and confirm that the results remain consistent.
 
 All simulation runs give the same result:
 
@@ -143,7 +140,7 @@ WirelessA.hostB.app[0]:
 
 The `transmission count` and the packets received by `hostB` are always `1596` packets, confirming the consistency of the results. The last event number `#20746` is also the same for all runs, indicating that the simulation is deterministic.
 
-### Modify the random number generator seed in `omnetpp.ini`. How does changing the seed impact the simulation results?
+## Modify the random number generator seed in `omnetpp.ini`. How does changing the seed impact the simulation results?
 
 To modify the seed of the random number generator, add the following line to `omnetpp.ini`:
 
@@ -154,7 +151,8 @@ seed-set = 1337
 After changing the seed, the simulation results are as follows:
 
 ```plaintext
-Simulation time limit reached -- at t=20s, event #21022
+Simulation time limit reached --
+  at t=20s, event #21022
 
 Transmission count = 1617
 Signal send count = 1617
@@ -168,7 +166,7 @@ The `transmission count` as well as the packets received by `hostB` are now `161
 
 From here on, the seed is set to `1337` for all simulations to allow reproducibility.
 
-### List all parameters of the MAC protocol used in `AckingWirelessInterface` with references to the source code.
+## List all parameters of the MAC protocol used in `AckingWirelessInterface` with references to the source code.
 
 The parameters in the `omnetpp.ini` file are as follows:
 
@@ -180,14 +178,15 @@ The parameters in the `omnetpp.ini` file are as follows:
 *.host*.wlan[0].\
   mac.fullDuplex = false
 *.host*.wlan[0].\
-  radio.transmitter.communicationRange = 500m
+  radio.transmitter.communicationRange =\
+    500m
 *.host*.wlan[0].\
   radio.receiver.ignoreInterference = true
 *.host*.wlan[0].\
   mac.headerLength = 23B
 ```
 
-and in the file `/linklayer/acking/AckingWirelessInterface.ned` (l. 30-36):
+and in the file `AckingWirelessInterface.ned` (l. 30-36):
 
 ```javascript
 parameters:
@@ -196,13 +195,17 @@ parameters:
     default("");
   double bitrate @unit(bps);
   *.interfaceTableModule =\
-    default(absPath(this.interfaceTableModule));
+    default(
+      absPath(this.interfaceTableModule)
+    );
   *.energySourceModule =\
-    default(absPath(this.energySourceModule));
+    default(
+      absPath(this.energySourceModule)
+    );
   **.bitrate = this.bitrate;
 ```
 
-### Explain the `throughput:vector` statistic in the analysis file by citing its definition and implementation in the source code.
+## Explain the `throughput:vector` statistic in the analysis file by citing its definition and implementation in the source code.
 
 Information can be found in `/applications/udpapp/UdpBasicApp.ned` (l. 55-57):
 
@@ -212,7 +215,10 @@ Information can be found in `/applications/udpapp/UdpBasicApp.ned` (l. 55-57):
 @statistic[packetReceived]
   (title="packets received";
     source=packetReceived;
-    record=count,"sum(packetBytes)","vector(packetBytes)";
+    record=count,
+      "sum(packetBytes)",
+      "vector(packetBytes)"
+    ;
     interpolationmode=none
   );
 @statistic[throughput]
@@ -236,9 +242,9 @@ attr title throughput
 
 These lines show that the `throughput:vector` statistic is associated with the `packetReceived` signal from the `hostB` application module, providing insight into the throughput performance of the network.
 
-## Step 2. Setting up some animations
+# Step 2. Setting up some animations
 
-### Visualize the radio transmission range.
+## Visualize the radio transmission range.
 
 ![Transmission Range](resources/transmission.png){#fig-transmission}
 
@@ -249,7 +255,7 @@ These lines show that the `throughput:vector` statistic is associated with the `
   communicationRange = 500m
 ```
 
-### Change the communication range so that host B is no longer reachable from host A. Visualize the new range.
+## Change the communication range so that host B is no longer reachable from host A. Visualize the new range.
 
 ![Reduced Transmission Range](resources/transmission_reduced.png){#fig-transmission-reduced}
 
@@ -260,7 +266,7 @@ These lines show that the `throughput:vector` statistic is associated with the `
   communicationRange = 250m
 ```
 
-### Provide simulation results for the transmission rate and explain them.
+## Provide simulation results for the transmission rate and explain them.
 
 To provide results, the range is set back to `500m` in the `omnetpp.ini` file. The simulation is run and the following output is generated:
 
@@ -268,7 +274,8 @@ To provide results, the range is set back to `500m` in the `omnetpp.ini` file. T
 Simulation time limit reached
   -- at t=20s, event #21022
 
-Radio signal arrival computation count = 1617
+Radio signal
+  arrival computation count = 1617
 Transmission count = 1617
 Signal send count = 1617
 Reception computation count = 1617
@@ -287,9 +294,9 @@ WirelessA.hostB.app[0]: received 0 packets
 
 The output confirms that no packets were received from `hostB`, indicating that the reduced communication range successfully prevented communication between the two hosts.
 
-## Step 3. Adding more nodes and decreasing the communication range
+# Step 3. Adding more nodes and decreasing the communication range
 
-### Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.
+## Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.
 
 The three new hosts (`hostR1`, `hostR2` and `hostR3`) are defined in the `WirelessB.ned` network configuration:
 
@@ -312,7 +319,7 @@ network WirelessB extends WirelessA
 }
 ```
 
-The `WirelessHost` is defined in `inet-4.5.4/src/inet/node/inet/WirelessHost.ned`:
+The `WirelessHost` is defined in `/node/inet/WirelessHost.ned`:
 
 ```javascript
 module WirelessHost extends StandardHost
@@ -334,9 +341,9 @@ The wireless interfaces for these hosts are specified in the `omnetpp.ini` file:
 
 Again, the `AckingWirelessInterface` type is used for the wireless interfaces of all hosts in the network.
 
-## Step 4. Setting up static routing
+# Step 4. Setting up static routing
 
-### Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.
+## Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.
 
 Set the following option in the `omnetpp.ini` file to enable this debugging information:
 
@@ -359,15 +366,15 @@ Alternatively, the routing table can be viewed in the runtime GUI by selecting t
 
 @fig-routing_table displays the routing table for `hostA`, showing the IP addresses of all hosts in the network.
 
-## Step 5. Taking interference into account {#sec-step_5}
+# Step 5. Taking interference into account {#sec-step_5}
 
-### Enable event log recording in the runtime GUI.
+## Enable event log recording in the runtime GUI.
 
 ![Enable Event Logging](resources/event_logging.png){#fig-event_logging}
 
 @fig-event_logging shows that the "Eventlog Recording" option is enabled in the runtime GUI.
 
-### Open the `.elog` file with a text editor and explain its contents.
+## Open the `.elog` file with a text editor and explain its contents.
 
 An excerpt from the `.elog` file is as follows:
 
@@ -400,9 +407,10 @@ CMB sm 61 tm 4 m transmitPacket
 BS id 242927 tid 242927 eid 242927
   etid 242927 c
     omnetpp::cMessage n
-      removeNonInterferingTransmissions sm 4 st
-        0.002868038578 am 4 at
-          0.021373372834 pe 9
+      removeNonInterferingTransmissions
+        sm 4 st 0.002868038578
+          am 4 at 0.021373372834
+            pe 9
 
 CMB sm 182 tm 30 m packetReceivedFromLower
 CME
@@ -430,13 +438,13 @@ In general, the file captures the detailed sequence of events and interactions b
 
 This information provides a comprehensive view of packet flow and module interactions that can be used to analyze system behavior and performance.
 
-### Analyze the event log using the sequence chart and event log table tools. Filter events for `hostA+udp`, `hostB+udp` and `hostR1+ip`.
+## Analyze the event log using the sequence chart and event log table tools. Filter events for `hostA+udp`, `hostB+udp` and `hostR1+ip`.
 
 ![Filter Event Log](resources/filter_event_log.png){#fig-filter_event_log}
 
 @fig-filter_event_log shows the event log filtering options for `hostA+udp`, `hostB+udp` and `hostR1+ip` in the runtime GUI.
 
-### Take screenshots and comment on both a complete and an incomplete transmission sequence chart.
+## Take screenshots and comment on both a complete and an incomplete transmission sequence chart.
 
 ![Event Log Start](resources/elog_0.png){#fig-event_log_start}
 
@@ -454,9 +462,9 @@ As shown in @fig-event_log_events, the sequence chart shows the status of three 
 
 This simplified view highlights the occurrence of packet loss or forwarding problems at `hostR1`, indicating the need for further analysis of routing or congestion effects on the network.
 
-## Step 6. Using CSMA to better utilize the medium {#sec-step_6}
+# Step 6. Using CSMA to better utilize the medium {#sec-step_6}
 
-### 1. Compare the number of packets received by host B in this configuration with the results from _Configuration Step 5_ (@sec-step_5). Explain the difference.
+## 1. Compare the number of packets received by host B in this configuration with the results from _Configuration Step 5_ (@sec-step_5). Explain the difference.
 
 Running the simulation with the CSMA configuration produces the following output:
 
@@ -474,9 +482,9 @@ WirelessB.hostB.app[0]:
 
 The number of packets received by `hostB` in this configuration is `1090`, which is significantly higher than the `139` packets received in the previous configuration. This difference can be attributed to the use of CSMA in the current configuration, which allows for better utilization of the medium by coordinating access to the channel among multiple nodes. The CSMA protocol helps reduce collisions and interference, resulting in more successful packet transmissions and higher throughput compared to the previous configuration.
 
-## Step 7. Turning on ACKs in CSMA {#sec-step_7}
+# Step 7. Turning on ACKs in CSMA {#sec-step_7}
 
-### Measure the `numRetry` statistic for _Configuration Steps 6_ (@sec-step_6) and _7_.
+## Measure the `numRetry` statistic for _Configuration Steps 6_ (@sec-step_6) and _7_.
 
 The `numRetry` statistic is measured in the simulation output (`Wireless06.sca`):
 
@@ -508,9 +516,9 @@ scalar WirelessB.hostR3.wlan[0].mac
   numRetry 0
 ```
 
-### Cite the source code where the logic for `numRetry` is defined.
+## Cite the source code where the logic for `numRetry` is defined.
 
-The logic for `numRetry` is implemented in `/inet-4.5.4/src/inet/linklayer/csmaca/CsmaCaMac.cc`:
+The logic for `numRetry` is implemented in `inet/linklayer/csmaca/CsmaCaMac.cc`:
 
 ```cpp
 numRetry = 0;
@@ -533,13 +541,13 @@ void CsmaCaMac::retryCurrentTransmission()
 
 At the start it is initialized with `0` and tracked using `WATCH`. In the `finish()` method, `numRetry` is recorded as a scalar statistic using `recordScalar()`. Each time a packet is not successfully transmitted and a retry is initiated, the `retryCurrentTransmission()` method increments `numRetry`.
 
-### Explain the differences in this metric between the two configurations.
+## Explain the differences in this metric between the two configurations.
 
 The `numRetry` metric for `Configuration Step 6` is `0` for all hosts because of the lack of ACKs. In `Configuration Step 7`, the `numRetry` statistic is `67` for `hostA` and `hostR1`, indicating the number of retransmissions due to failed packet delivery attempts. The increase in `numRetry` when ACKs are enabled is due to the acknowledgment mechanism requiring retries when packets are lost or ACKs are not received. While this increases the reliability of the network, it also results in higher retransmission counts, especially in scenarios with higher traffic or interference.
 
-## Step 8. Configuring node movements
+# Step 8. Configuring node movements
 
-### Plot the `throughput vector` at `hostB` and identify the time when the transmission stops.
+## Plot the `throughput vector` at `hostB` and identify the time when the transmission stops.
 
 The following plot is generated using the *Line Chart with Matplotlib* tool in the runtime GUI:
 
