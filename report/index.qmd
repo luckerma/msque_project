@@ -50,7 +50,7 @@ The simulation was run using the IDE, which provides a graphical interface for c
 
 Each of the following steps corresponds to a specific configuration in the tutorial. The results and analysis for each configuration are presented in detail.
 
-# Step 1. Two hosts communicating wirelessly
+# Two hosts communicating wirelessly
 
 ## Simulate and measure the transmission rate.
 
@@ -242,7 +242,7 @@ attr title throughput
 
 These lines show that the `throughput:vector` statistic is associated with the `packetReceived` signal from the `hostB` application module, providing insight into the throughput performance of the network.
 
-# Step 2. Setting up some animations
+# Setting up some animations
 
 ## Visualize the radio transmission range.
 
@@ -294,7 +294,7 @@ WirelessA.hostB.app[0]: received 0 packets
 
 The output confirms that no packets were received from `hostB`, indicating that the reduced communication range successfully prevented communication between the two hosts.
 
-# Step 3. Adding more nodes and decreasing the communication range
+# Adding more nodes and decreasing the communication range
 
 ## Identify the type of wireless interfaces for the new hosts. Explain your answer with references to the source code.
 
@@ -341,7 +341,7 @@ The wireless interfaces for these hosts are specified in the `omnetpp.ini` file:
 
 Again, the `AckingWirelessInterface` type is used for the wireless interfaces of all hosts in the network.
 
-# Step 4. Setting up static routing
+# Setting up static routing
 
 ## Use the runtime GUI to capture a screenshot showing the IP addresses of all hosts in the network.
 
@@ -366,7 +366,7 @@ Alternatively, the routing table can be viewed in the runtime GUI by selecting t
 
 @fig-routing_table displays the routing table for `hostA`, showing the IP addresses of all hosts in the network.
 
-# Step 5. Taking interference into account {#sec-step_5}
+# Taking interference into account {#sec-step_5}
 
 ## Enable event log recording in the runtime GUI.
 
@@ -462,7 +462,7 @@ As shown in @fig-event_log_events, the sequence chart shows the status of three 
 
 This simplified view highlights the occurrence of packet loss or forwarding problems at `hostR1`, indicating the need for further analysis of routing or congestion effects on the network.
 
-# Step 6. Using CSMA to better utilize the medium {#sec-step_6}
+# Using CSMA to better utilize the medium {#sec-step_6}
 
 ## 1. Compare the number of packets received by host B in this configuration with the results from _Configuration Step 5_ (@sec-step_5). Explain the difference.
 
@@ -482,7 +482,7 @@ WirelessB.hostB.app[0]:
 
 The number of packets received by `hostB` in this configuration is `1090`, which is significantly higher than the `139` packets received in the previous configuration. This difference can be attributed to the use of CSMA in the current configuration, which allows for better utilization of the medium by coordinating access to the channel among multiple nodes. The CSMA protocol helps reduce collisions and interference, resulting in more successful packet transmissions and higher throughput compared to the previous configuration.
 
-# Step 7. Turning on ACKs in CSMA {#sec-step_7}
+# Turning on ACKs in CSMA {#sec-step_7}
 
 ## Measure the `numRetry` statistic for _Configuration Steps 6_ (@sec-step_6) and _7_.
 
@@ -545,7 +545,7 @@ At the start it is initialized with `0` and tracked using `WATCH`. In the `finis
 
 The `numRetry` metric for `Configuration Step 6` is `0` for all hosts because of the lack of ACKs. In `Configuration Step 7`, the `numRetry` statistic is `67` for `hostA` and `hostR1`, indicating the number of retransmissions due to failed packet delivery attempts. The increase in `numRetry` when ACKs are enabled is due to the acknowledgment mechanism requiring retries when packets are lost or ACKs are not received. While this increases the reliability of the network, it also results in higher retransmission counts, especially in scenarios with higher traffic or interference.
 
-# Step 8. Configuring node movements
+# Configuring node movements
 
 ## Plot the `throughput vector` at `hostB` and identify the time when the transmission stops.
 
