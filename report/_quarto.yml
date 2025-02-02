@@ -9,9 +9,9 @@ format:
   pdf:
     toc: true
     toc-depth: 2
-  ieee-pdf:
-    toc: true
-    toc-depth: 2
+  #ieee-pdf:
+    #toc: true
+    #toc-depth: 2
 
 execute:
   freeze: false
